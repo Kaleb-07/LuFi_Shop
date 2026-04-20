@@ -1,0 +1,24 @@
+{
+  "welcome": "Baga nagaan dhuftan",
+  "sales_dashboard": "Daaishboordii Gurgurtaa",
+  "total_revenue": "Galii Waligalaa",
+  "total_sales": "Gurgurtaa Waligalaa",
+  "avg_order_value": "Gatii Giddu-galeessaa",
+  "total_vat": "VAT Waligalaa",
+  "nav": {
+    "store": "Koorsii",
+    "about": "Waa'ee Keenya",
+    "contact": "Nu Quunnamaa",
+    "searchProducts": "Oomishaalee barbaadi...",
+    "profileSettings": "Sajantii Piroofayilaa",
+    "signOut": "Ba'i",
+    "signIn": "Seeni",
+    "faq": "FAQ",
+    "trackOrder": "Tarkaanfii hordofi"
+  },
+  "footer": {
+    "shop": "Bitu",
+    "support": "Gargaarsa",
+    "contactUs": "Nu Quunnamaa"
+  }
+}

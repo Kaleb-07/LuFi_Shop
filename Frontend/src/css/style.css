@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=fallback");
+/* @import "tailwindcss"; */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+/* Additional styles */
+@import "additional-styles/utility-patterns.css";
+@import "additional-styles/flatpickr.css";
+
+@import "tailwindcss/utilities";
+@media print {
+  .print-container {
+    width: 100%;
+    padding: 20px;
+    font-size: 12px;
+  }
+
+  /* Hide unnecessary UI elements when printing */
+  .no-print {
+    display: none;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid black !important;
+    padding: 5px;
+  }
+
+  /* Remove extra spacing to fit in one page */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media print {
+  .hide-on-print {
+    display: none !important;
+  }
+}
+
+.custom-button {
+  background-image: linear-gradient(120deg,
+      transparent 0%,
+      transparent 50%,
+      rgb(6, 182, 212) 50%);
+  background-size: 230%;
+  transition: all 0.1s;
+}
+
+.custom-button:hover {
+  background-position: 100%;
+}
+
+.custom-button:hover .btn-arrow {
+  transform: translateX(0.3rem);
+}
+
+@layer utilities {
+
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .no-spinner {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 82%;
+    /* Darkened from 89.8% */
+    --input: 0 0% 96%;
+    /* Kept light for inputs */
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 10%;
+    /* Darker border in dark mode */
+    --input: 0 0% 16%;
+    /* Dark mode input background */
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
+  /* Protect input fields: keep them white/light regardless of gray darkening */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+  select,
+  textarea {
+    background-color: #ffffff;
+    border-color: #d1d5db;
+    /* gray-300 equivalent - slightly visible border */
+    color: #111827;
+    /* dark text */
+  }
+
+  .dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]),
+  .dark select,
+  .dark textarea {
+    background-color: #1f2937;
+    /* dark-mode: gray-800 */
+    border-color: #374151;
+    /* dark-mode: gray-700 */
+    color: #f9fafb;
+    /* light text */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* Poppins body text — 16px / 400 / lab(35.63 -1.59 -10.84) */
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: lab(35.6337 -1.58697 -10.8425);
+  }
+
+  /* Ecommerce title typography — all headings site-wide */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 48px;
+    color: lab(30.372 -13.1853 -18.7887);
+  }
+}
+
+/* ============================================
+   Ecommerce Custom Utility Classes
+   ============================================ */
+
+/* Blue/Green gradient — used for primary buttons & accents */
+.gold-gradient {
+  background: linear-gradient(135deg, hsl(201, 61%, 40%) 0%, hsl(201, 61%, 50%) 100%);
+}
+
+/* Blue text — used for brand logo & highlights */
+.gold-text {
+  background: linear-gradient(135deg, hsl(201, 61%, 40%) 0%, hsl(201, 61%, 50%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Heading font — ecommerce brand typography */
+.font-heading {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 48px;
+  letter-spacing: normal;
+}
+
+/* Container — consistent max-width layout for ecommerce pages */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Ecommerce dark mode — uses the same .dark class as the app */
+.dark {
+  --background: 201 47% 6%;
+  --foreground: 201 40% 95%;
+  --card: 201 47% 9%;
+  --card-foreground: 201 40% 95%;
+  --popover: 201 47% 9%;
+  --popover-foreground: 201 40% 95%;
+  --primary: 201 61% 40%;
+  --primary-foreground: 201 40% 95%;
+  --secondary: 201 47% 13%;
+  --secondary-foreground: 201 40% 95%;
+  --muted: 201 47% 13%;
+  --muted-foreground: 215 20% 55%;
+  --accent: 201 47% 13%;
+  --accent-foreground: 201 40% 95%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 95%;
+  --border: 201 47% 15%;
+  --input: 201 47% 13%;
+  --ring: 201 61% 40%;
+}
+
+/* Light mode ecommerce overrides */
+:root {
+  --primary: 201 61% 40%;
+  --primary-foreground: 0 0% 100%;
+  --background: 125 33% 97%;
+  --foreground: 201 47% 8%;
+  --card: 0 0% 100%;
+  --card-foreground: 201 47% 8%;
+  --border: 125 14% 88%;
+  --secondary: 125 33% 85%;
+  --secondary-foreground: 201 47% 8%;
+  --muted: 125 14% 95%;
+  --muted-foreground: 125 10% 46%;
+  --ring: 201 61% 40%;
+}

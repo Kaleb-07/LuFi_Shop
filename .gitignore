@@ -1,0 +1,26 @@
+# Common
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.log
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Frontend specific
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.env
+Frontend/.env.local
+
+# Backend specific (if any)
+Backend/node_modules/
+Backend/vendor/
+Backend/.env

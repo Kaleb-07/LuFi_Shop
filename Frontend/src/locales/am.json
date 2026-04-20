@@ -1,0 +1,24 @@
+{
+  "welcome": "እንኳን ደህና መጡ",
+  "sales_dashboard": "የሽያጭ ዳሽቦርድ",
+  "total_revenue": "ጠቅላላ ገቢ",
+  "total_sales": "ጠቅላላ ሽያጭ",
+  "avg_order_value": "አማካኝ የትዕዛዝ ዋጋ",
+  "total_vat": "ጠቅላላ ቪኤቲ",
+  "nav": {
+    "store": "መደብር",
+    "about": "ስለ እኛ",
+    "contact": "ያግኙን",
+    "searchProducts": "ምርቶችን ይፈልጉ...",
+    "profileSettings": "የመገለጫ ቅንብሮች",
+    "signOut": "ውጣ",
+    "signIn": "ግባ",
+    "faq": "ተዘውትረው የሚጠየቁ ጥያቄዎች",
+    "trackOrder": "ትዕዛዝ ይከታተሉ"
+  },
+  "footer": {
+    "shop": "ይግዙ",
+    "support": "እርዳታ",
+    "contactUs": "ያግኙን"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "welcome": "Welcome",
+  "sales_dashboard": "Sales Dashboard",
+  "total_revenue": "Total Revenue",
+  "total_sales": "Total Sales",
+  "avg_order_value": "Avg. Order Value",
+  "total_vat": "Total VAT",
+  "about": {
+    "heroTitle": "Crafting the Future of Global Commerce",
+    "heroSubtitle": "We're building a marketplace where quality, trust, and human connection meet. Join us in redefining how the world shops.",
+    "missionBadge": "Our Philosophy",
+    "missionTitle": "Keep Commerce Human",
+    "missionDesc1": "The global marketplace for unique and creative goods. It's home to a universe of special, extraordinary items, from unique handcrafted pieces to vintage treasures.",
+    "missionDesc2": "In a time of increasing automation, it's our mission to keep human connection at the heart of commerce. That's why we built a place where creativity lives and thrives because it's powered by people.",
+    "missionDesc3": "We help our community of sellers turn their ideas into successful businesses. Our platform connects them with millions of buyers looking for an alternative—something special with a human touch, for those moments in life that deserve imagination.",
+    "missionDesc4": "As a company, we strive to lead with our guiding principles and to help spread ideas of sustainability and responsibility whose impact can reach far beyond our own business.",
+    "learnMore": "Discover our guiding principles",
+    "how_it_works_title": "How It Works",
+    "how_it_works_subtitle": "Our global marketplace is a vibrant community of real people connecting over special goods. The platform empowers sellers to do what they love and helps buyers find what they love.",
+    "statsTitle": "Our impact in numbers",
+    "statsSubtitle": "We take pride in our rapid growth and the community of sellers and buyers that call our platform home.",
+    "features": {
+      "sellTitle": "Sell extraordinarily",
+      "sellDesc": "With low fees, powerful tools, and support and education, we help creative entrepreneurs start, manage, and scale their businesses. Want to become a seller? Join us today.",
+      "sellBtn": "Become a seller",
+      "buyTitle": "Buy extraordinary",
+      "buyDesc": "From the specific to the unexpected (or custom-made), our search tools help buyers explore all the special one-of-a-kind items. Our curated collections spotlight exciting trends and ideas.",
+      "buyBtn": "Start shopping",
+      "shopTitle": "Shop securely",
+      "shopDesc": "We provide the technology behind our marketplace, helping buyers and sellers connect and exchange on our platform. Keeping those connections safe, fun and secure is our priority.",
+      "shopBtn": "Learn how we help"
+    },
+    "labels": {
+      "activeUsers": "Active Users",
+      "premiumProducts": "Premium Products",
+      "countriesServed": "Countries Served",
+      "certifiedSellers": "Certified Sellers"
+    }
+  },
+  "nav": {
+    "store": "Store",
+    "about": "About",
+    "contact": "Contact",
+    "searchProducts": "Search products...",
+    "profileSettings": "Profile Settings",
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
+    "faq": "FAQ",
+    "trackOrder": "Track Order"
+  },
+  "footer": {
+    "shop": "Shop",
+    "support": "Support",
+    "contactUs": "Contact Us"
+  }
+}
