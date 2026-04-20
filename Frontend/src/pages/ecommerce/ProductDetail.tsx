@@ -9,7 +9,6 @@ import Navbar from "../../components/ecommerce/Navbar";
 import Footer from "../../components/ecommerce/Footer";
 import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { useCart } from "../../contexts/CartContext";
-import { useLanguage } from "../../contexts/LanguageContext";
 import { useProduct, useProducts } from "../../hooks/useProducts";
 import { useToast } from "../../hooks/use-toast";
 
@@ -95,7 +94,7 @@ const SimilarCard = ({ product }: { product: any }) => {
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      onClick={() => navigate(`/shop/product/${product.id}`)}
+      onClick={() => window.scrollTo(0, 0) || navigate(`/shop/product/${product.id}`)}
       className="flex-shrink-0 w-52 cursor-pointer rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100"
     >
       <div className="relative h-44 w-full bg-gray-50">
@@ -107,7 +106,7 @@ const SimilarCard = ({ product }: { product: any }) => {
       </div>
       <div className="p-3">
         <p className="text-sm font-semibold text-gray-900 truncate">{product.item_name}</p>
-        <p className="text-xs text-gray-500 mt-0.5">{product.brand_name}</p>
+        <p className="text-xs text-gray-500 mt-0.5">{product.brand_name || "Premium Brand"}</p>
         <div className="flex items-center justify-between mt-2">
           <span className="text-sm font-bold text-primary">ETB {product.price}</span>
           <StarRow rating={4} size={3} />
@@ -123,7 +122,6 @@ const ProductDetail = () => {
   const { data: product, isLoading, isError } = useProduct(id ? Number(id) : undefined);
   const { data: allProducts } = useProducts();
   const { addToCart } = useCart();
-  const { t } = useLanguage();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -182,13 +180,13 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <main className="container py-8 space-y-16">
-
+      <main className="container py-8 space-y-12">
+        <div className="pt-4" />
         {/* ══════════════════════════════════════════════════════
             SECTION 1 – BREADCRUMB
         ══════════════════════════════════════════════════════ */}
         <nav className="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
-          <Link to="/shop" className="hover:text-primary transition-colors">Home</Link>
+          <Link to="/shop" className="hover:text-primary transition-colors">Store</Link>
           <ChevronRight className="h-3.5 w-3.5" />
           {displayProduct.category_name && (
             <>
@@ -200,7 +198,9 @@ const ProductDetail = () => {
           )}
           {displayProduct.brand_name && (
             <>
-              <span className="hover:text-primary transition-colors capitalize">{displayProduct.brand_name}</span>
+              <Link to={`/shop?brand=${displayProduct.brand_name}`} className="hover:text-primary transition-colors capitalize">
+                {displayProduct.brand_name}
+              </Link>
               <ChevronRight className="h-3.5 w-3.5" />
             </>
           )}
@@ -215,7 +215,7 @@ const ProductDetail = () => {
           {/* ── Left Column: Image Thumbnails ── */}
           <div className="flex flex-col gap-6 lg:gap-10 order-1 lg:order-1">
             <div className="grid grid-cols-1 lg:grid-cols-[100px_1fr] gap-6 lg:gap-8">
-              <div className="flex lg:flex-col flex-row gap-3 order-2 lg:order-1">
+              <div className="flex lg:flex-col flex-row gap-3 order-2 lg:order-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] py-1 lg:py-0">
                 {images.map((src, i) => (
                   <motion.button
                     key={i}
@@ -546,7 +546,7 @@ const ProductDetail = () => {
                   View all <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-              <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+              <div className="flex gap-4 overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] snap-x snap-mandatory">
                 {similarProducts.map((p) => (
                   <div key={p.id} className="snap-start">
                     <SimilarCard product={p} />
@@ -557,13 +557,13 @@ const ProductDetail = () => {
           )
         }
 
-        {/* Back to shop link */}
-        <div className="pb-4">
+        {/* ── Back to Shop Button (Bottom) ── */}
+        <div className="pt-12 pb-8 flex justify-center">
           <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-gray-700 transition-colors"
+            onClick={() => navigate("/shop")}
+            className="group flex items-center gap-2.5 px-8 py-3 rounded-full bg-white border border-gray-200 text-gray-600 font-bold text-sm transition-all hover:bg-gray-50 hover:border-primary/30 hover:text-primary hover:shadow-xl hover:shadow-primary/5 active:scale-95"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Back to Shop
           </button>
         </div>
@@ -572,11 +572,6 @@ const ProductDetail = () => {
 
       <Footer />
 
-      {/* Hide scrollbar utility */}
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
     </div >
   );
 };
