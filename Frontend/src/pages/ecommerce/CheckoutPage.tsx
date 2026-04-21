@@ -9,7 +9,8 @@ import { Label } from "../../components/ecommerce/ecommerce-ui/label";
 import { useCart } from "../../contexts/CartContext";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { toast } from "sonner";
-import { ArrowLeft, CreditCard, Banknote, Lock } from "lucide-react";
+import { ArrowLeft, CreditCard, Banknote, Lock, CheckCircle } from "lucide-react";
+import { createOrder } from "../../lib/api";
 
 const CheckoutPage = () => {
   const { items, totalPrice, clearCart } = useCart();
@@ -17,17 +18,65 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [payment, setPayment] = useState("cod");
+  const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: ""
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const orderData = {
+        items: items.map(item => ({
+          product_id: item.product.id,
+          quantity: item.quantity
+        })),
+        shipping_address: formData.address,
+        phone: formData.phone,
+        email: formData.email,
+        payment_method: payment,
+        customer_name: formData.name
+      };
+
+      const response: any = await createOrder(orderData);
+      setOrderNumber(response.order_number);
       clearCart();
       toast.success("Order placed successfully!");
-      navigate("/shop");
+    } catch (error) {
+      console.error("Order failed:", error);
+      toast.error("Failed to place order. Please try again.");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
+
+  if (orderNumber) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="container py-32 flex flex-col items-center justify-center text-center space-y-6">
+          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="h-20 w-20 rounded-full bg-green-100 flex items-center justify-center">
+            <CheckCircle className="h-10 w-10 text-green-600" />
+          </motion.div>
+          <h1 className="text-4xl font-bold">Thank You!</h1>
+          <p className="text-xl text-muted-foreground max-w-md">Your order has been placed successfully. Save your order number for tracking.</p>
+          <div className="bg-muted p-4 rounded-xl font-mono text-xl font-bold border border-border">
+            {orderNumber}
+          </div>
+          <div className="flex gap-4">
+            <Button onClick={() => navigate("/shop")}>Continue Shopping</Button>
+            <Button variant="outline" onClick={() => navigate(`/shop/track?id=${orderNumber}`)}>Track Order</Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     navigate("/shop/cart");
@@ -54,20 +103,20 @@ const CheckoutPage = () => {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">{t("checkout.fullName")}</Label>
-                  <Input id="name" placeholder="John Doe" required maxLength={100} />
+                  <Input id="name" placeholder="John Doe" required maxLength={100} value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">{t("checkout.phone")}</Label>
-                  <Input id="phone" placeholder="+1 234 567 890" required maxLength={20} />
+                  <Input id="phone" placeholder="+1 234 567 890" required maxLength={20} value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">{t("checkout.email")}</Label>
-                <Input id="email" type="email" placeholder="you@example.com" required maxLength={255} />
+                <Input id="email" type="email" placeholder="you@example.com" required maxLength={255} value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="address">{t("checkout.address")}</Label>
-                <Input id="address" placeholder="123 Main Street, City, Country" required maxLength={300} />
+                <Input id="address" placeholder="123 Main Street, City, Country" required maxLength={300} value={formData.address} onChange={(e) => setFormData({...formData, address: e.target.value})} />
               </div>
             </motion.div>
 

@@ -28,7 +28,7 @@ import {
   Footprints
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { mockProducts } from "../../lib/mock-data";
+import { fetchEcommerceProducts, fetchCategories, fetchBrands, Product, Category, Brand } from "../../lib/api";
 import { useCart } from "../../contexts/CartContext";
 import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { Card, CardContent } from "../../components/ecommerce/ecommerce-ui/card";
@@ -37,26 +37,31 @@ import Navbar from "../../components/ecommerce/Navbar";
 import Footer from "../../components/ecommerce/Footer";
 import { useLanguage } from "../../contexts/LanguageContext";
 
-const CATEGORIES = [
-  { name: "All Products", key: "cat.all", icon: LayoutGrid },
-  { name: "Electronics", key: "cat.electronics", icon: Smartphone },
-  { name: "Fashion", key: "cat.fashion", icon: Shirt },
-  { name: "Bags", key: "cat.bags", icon: ShoppingBag },
-  { name: "Shoes", key: "cat.shoes", icon: Footprints },
-  { name: "Accessories", key: "cat.accessories", icon: Watch },
-  { name: "Home & Living", key: "cat.home", icon: Home },
-  { name: "Beauty", key: "cat.beauty", icon: Sparkles },
-  { name: "Sports", key: "cat.sports", icon: Trophy },
-  { name: "Gadgets", key: "cat.gadgets", icon: Cpu },
-  { name: "Lifestyle", key: "cat.lifestyle", icon: Map },
-];
-
-const BAG_TYPES = ["Backpack", "Handbag", "Laptop", "Travel"]; const BRANDS = ["Nike", "Adidas", "Apple", "Samsung", "Zara", "Gucci"];
+const ICON_MAP: Record<string, any> = {
+  LayoutGrid,
+  Smartphone,
+  Shirt,
+  ShoppingBag,
+  Footprints,
+  Watch,
+  Home,
+  Sparkles,
+  Trophy,
+  Cpu,
+  Map,
+};
 
 const StorePage = () => {
   const location = useLocation();
   const { t } = useLanguage();
   const { addToCart } = useCart();
+  
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [selectedCategory, setSelectedCategory] = useState("All Products");
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -65,6 +70,29 @@ const StorePage = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(window.innerWidth >= 1024);
   const [visibleItems, setVisibleItems] = useState(12);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const [productsData, categoriesData, brandsData] = await Promise.all([
+          fetchEcommerceProducts(),
+          fetchCategories(),
+          fetchBrands()
+        ]);
+        setProducts(productsData);
+        setCategories(categoriesData);
+        setBrands(brandsData);
+        setError(null);
+      } catch (err) {
+        console.error("Failed to fetch store data:", err);
+        setError("Failed to load products. Please check your connection.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -86,12 +114,12 @@ const StorePage = () => {
 
     setSearchQuery(q);
 
-    if (cat && CATEGORIES.some(c => c.name === cat)) {
+    if (cat && (cat === "All Products" || categories.some(c => c.name === cat))) {
       setSelectedCategory(cat);
     } else if (!cat) {
       setSelectedCategory("All Products");
     }
-  }, [location.search]);
+  }, [location.search, categories]);
 
   // Reactive Sidebar: Open when category changes to something specific
   useEffect(() => {
@@ -102,19 +130,19 @@ const StorePage = () => {
 
   const availableTypes = useMemo(() => {
     if (selectedCategory === "All Products") return [];
-    const types = mockProducts
+    const types = products
       .filter((p) => p.category_name === selectedCategory && p.part_number)
-      .map((p) => p.part_number);
+      .map((p) => p.part_number!);
     return Array.from(new Set(types));
-  }, [selectedCategory]);
+  }, [selectedCategory, products]);
 
   const filteredProducts = useMemo(() => {
-    let products = [...mockProducts];
+    let prods = [...products];
 
     // --- 1. Advanced Deep Search ---
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
-      products = products.filter((p) =>
+      prods = prods.filter((p) =>
         p.item_name.toLowerCase().includes(q) ||
         (p.brand_name && p.brand_name.toLowerCase().includes(q)) ||
         (p.description && p.description.toLowerCase().includes(q))
@@ -123,34 +151,34 @@ const StorePage = () => {
 
     // --- 2. Category ---
     if (selectedCategory !== "All Products") {
-      products = products.filter((p) => p.category_name === selectedCategory);
+      prods = prods.filter((p) => p.category_name === selectedCategory);
     }
 
     // --- 3. Price Range ---
-    products = products.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
+    prods = prods.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
 
     // --- 4. Drill-down Filters ---
     if (selectedTypes.length > 0) {
-      products = products.filter((p) => p.part_number && selectedTypes.includes(p.part_number));
+      prods = prods.filter((p) => p.part_number && selectedTypes.includes(p.part_number));
     }
 
     if (selectedBrands.length > 0) {
-      products = products.filter((p) => p.brand_name && selectedBrands.includes(p.brand_name));
+      prods = prods.filter((p) => p.brand_name && selectedBrands.includes(p.brand_name));
     }
 
     // --- 5. Advanced Sorting ---
     if (sortBy === "Price: Low to High") {
-      products.sort((a, b) => a.price - b.price);
+      prods.sort((a, b) => a.price - b.price);
     } else if (sortBy === "Price: High to Low") {
-      products.sort((a, b) => b.price - a.price);
+      prods.sort((a, b) => b.price - a.price);
     } else if (sortBy === "Popularity") {
-      products.sort((a, b) => ((b.id % 10) + b.price / 1000) - ((a.id % 10) + a.price / 1000));
+      prods.sort((a, b) => ((b.id % 10) + b.price / 1000) - ((a.id % 10) + a.price / 1000));
     } else if (sortBy === "Best Rated") {
-      products.sort((a, b) => (b.id % 5) - (a.id % 5));
+      prods.sort((a, b) => (b.id % 5) - (a.id % 5));
     }
 
-    return products;
-  }, [selectedCategory, selectedTypes, selectedBrands, sortBy, searchQuery, priceRange]);
+    return prods;
+  }, [products, selectedCategory, selectedTypes, selectedBrands, sortBy, searchQuery, priceRange]);
 
   const toggleType = (type: string) => {
     setSelectedTypes((prev) =>
@@ -210,58 +238,56 @@ const StorePage = () => {
                     </div>
 
                     <div className="flex flex-col gap-2 pl-4">
-                      {CATEGORIES.map((cat, idx) => (
-                        <div key={cat.name} className="relative group/wrapper">
+                      {[{ name: "All Products", icon_name: "LayoutGrid" }, ...categories].map((cat, idx) => {
+                        const Icon = ICON_MAP[cat.icon_name || "LayoutGrid"] || LayoutGrid;
+                        return (
+                          <div key={cat.name} className="relative group/wrapper">
+                            {/* The Snappy Sliding Highlight Box */}
+                            {selectedCategory === cat.name && (
+                              <motion.div
+                                layoutId="active-category-bg"
+                                className="absolute inset-0 bg-[#ebf3f5] rounded-l-[16px] z-0 shadow-[-5px_0_15px_rgba(0,0,0,0.02)]"
+                                initial={false}
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 450,
+                                  damping: 40,
+                                  bounce: 0.1
+                                }}
+                              >
+                                <div className="absolute right-0 -top-4 w-4 h-4 bg-transparent shadow-[4px_4px_0_4px_#ebf3f5] rounded-br-[16px] pointer-events-none" />
+                                <div className="absolute right-0 -bottom-4 w-4 h-4 bg-transparent shadow-[4px_-4px_0_4px_#ebf3f5] rounded-tr-[16px] pointer-events-none" />
+                              </motion.div>
+                            )}
 
-                          {/* The Snappy Sliding Highlight Box */}
-                          {selectedCategory === cat.name && (
-                            <motion.div
-                              layoutId="active-category-bg"
-                              className="absolute inset-0 bg-[#ebf3f5] rounded-l-[16px] z-0 shadow-[-5px_0_15px_rgba(0,0,0,0.02)]"
-                              initial={false}
-                              transition={{
-                                type: "spring",
-                                stiffness: 450,
-                                damping: 40,
-                                bounce: 0.1
+                            <motion.button
+                              initial={{ x: -10, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{ delay: idx * 0.03 }}
+                              onClick={() => {
+                                setSelectedCategory(cat.name);
+                                setSelectedTypes([]);
+                                setSelectedBrands([]);
+                                if (window.innerWidth < 1024) setIsSidebarExpanded(false);
                               }}
+                              className={`w-full text-left py-3.5 px-4 rounded-l-[16px] flex items-center ${isSidebarExpanded ? 'justify-between' : 'justify-center'} relative z-10 transition-colors duration-200 ${selectedCategory === cat.name
+                                  ? "text-[#1e4a5d]"
+                                  : "hover:bg-white/5 text-[#8cbab3]"
+                                }`}
+                              title={!isSidebarExpanded ? cat.name : undefined}
                             >
-                              {/* Integrated Top Curve */}
-                              <div className="absolute right-0 -top-4 w-4 h-4 bg-transparent shadow-[4px_4px_0_4px_#ebf3f5] rounded-br-[16px] pointer-events-none" />
-                              {/* Integrated Bottom Curve */}
-                              <div className="absolute right-0 -bottom-4 w-4 h-4 bg-transparent shadow-[4px_-4px_0_4px_#ebf3f5] rounded-tr-[16px] pointer-events-none" />
-                            </motion.div>
-                          )}
-
-                          <motion.button
-                            initial={{ x: -10, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ delay: idx * 0.03 }}
-                            onClick={() => {
-                              setSelectedCategory(cat.name);
-                              setSelectedTypes([]);
-                              setSelectedBrands([]);
-                              if (window.innerWidth < 1024) setIsSidebarExpanded(false);
-                            }}
-                            className={`w-full text-left py-3.5 px-4 rounded-l-[16px] flex items-center ${isSidebarExpanded ? 'justify-between' : 'justify-center'} relative z-10 transition-colors duration-200 ${selectedCategory === cat.name
-                                ? "text-[#1e4a5d]"
-                                : "hover:bg-white/5 text-[#8cbab3]"
-                              }`}
-                            title={!isSidebarExpanded ? cat.name : undefined}
-                          >
-                            <div className={`flex items-center gap-4 relative z-20`}>
-                              <cat.icon className={`h-5 w-5 shrink-0 transition-all duration-300 ${selectedCategory === cat.name ? "text-[#1e4a5d] stroke-[2.5px]" : "text-[#8cbab3] group-hover/wrapper:text-white"
-                                }`} />
-                              {isSidebarExpanded && (
-                                <span className={`text-[14px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 ${selectedCategory === cat.name ? "text-[#1e4a5d] font-bold" : "text-[#8cbab3] group-hover/wrapper:text-white"
-                                  }`}>
-                                  {cat.name}
-                                </span>
-                              )}
-                            </div>
-                          </motion.button>
-                        </div>
-                      ))}
+                              <div className="flex items-center gap-4 relative z-20">
+                                <Icon className={`h-5 w-5 shrink-0 transition-all duration-300 ${selectedCategory === cat.name ? "text-[#1e4a5d] stroke-[2.5px]" : "text-[#8cbab3] group-hover/wrapper:text-white"}`} />
+                                {isSidebarExpanded && (
+                                  <span className={`text-[14px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 ${selectedCategory === cat.name ? "text-[#1e4a5d] font-bold" : "text-[#8cbab3] group-hover/wrapper:text-white"}`}>
+                                    {cat.name}
+                                  </span>
+                                )}
+                              </div>
+                            </motion.button>
+                          </div>
+                        );
+                      })}
                     </div>
 
                     {/* Price Range in Sidebar*/}
@@ -430,16 +456,16 @@ const StorePage = () => {
                         <div className="flex flex-col gap-1">
                           <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400 px-1 leading-none">{t("store.brand")}</h4>
                           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                            {BRANDS.map((brand) => (
+                            {brands.map((brand) => (
                               <button
-                                key={brand}
-                                onClick={() => toggleBrand(brand)}
-                                className={`shrink-0 px-5 py-2 rounded-full text-xs font-bold transition-all border ${selectedBrands.includes(brand)
+                                key={brand.slug}
+                                onClick={() => toggleBrand(brand.name)}
+                                className={`shrink-0 px-5 py-2 rounded-full text-xs font-bold transition-all border ${selectedBrands.includes(brand.name)
                                   ? "bg-primary border-primary text-white shadow-lg shadow-primary/20"
                                   : "bg-white border-neutral-100 text-neutral-600 hover:border-primary/30 hover:bg-primary/5"
                                   }`}
                               >
-                                {brand}
+                                {brand.name}
                               </button>
                             ))}
                           </div>
@@ -479,18 +505,29 @@ const StorePage = () => {
               </div>
             </div>
 
-            {/* Product Grid */}
-            <div className={`grid grid-cols-1 sm:grid-cols-2 ${isSidebarExpanded ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-8 transition-all duration-500`}>
-              <AnimatePresence mode="popLayout">
-                {filteredProducts.slice(0, visibleItems).map((product, idx) => (
-                  <motion.div
-                    key={product.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    transition={{ duration: 0.4, delay: idx * 0.05 }}
-                  >
+            {loading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {[...Array(8)].map((_, i) => (
+                  <div key={i} className="h-[400px] rounded-3xl bg-white/50 animate-pulse border border-neutral-100" />
+                ))}
+              </div>
+            ) : error ? (
+              <div className="text-center py-40 border-2 border-dashed border-red-100 rounded-3xl bg-red-50/10">
+                <p className="text-red-500 font-bold mb-4">{error}</p>
+                <Button variant="outline" onClick={() => window.location.reload()}>Retry</Button>
+              </div>
+            ) : (
+              <div className={`grid grid-cols-1 sm:grid-cols-2 ${isSidebarExpanded ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-8 transition-all duration-500`}>
+                <AnimatePresence mode="popLayout">
+                  {filteredProducts.slice(0, visibleItems).map((product, idx) => (
+                    <motion.div
+                      key={product.id}
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.4, delay: idx * 0.05 }}
+                    >
                     <Link to={`/shop/product/${product.id}`}>
                       <Card className="group relative h-full overflow-hidden border-none bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] rounded-3xl">
                         <div className="relative aspect-square overflow-hidden bg-neutral-100">
@@ -558,9 +595,10 @@ const StorePage = () => {
                       </Card>
                     </Link>
                   </motion.div>
-                ))}
-              </AnimatePresence>
-            </div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            )}
 
             {/* Load More */}
             {visibleItems < filteredProducts.length && (

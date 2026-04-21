@@ -19,6 +19,12 @@ import ContactPage from "./pages/ecommerce/ContactPage";
 import FAQPage from "./pages/ecommerce/FAQPage";
 import TrackOrderPage from "./pages/ecommerce/TrackOrderPage";
 import StorePage from "./pages/ecommerce/StorePage";
+import MyOrdersPage from "./pages/ecommerce/MyOrdersPage";
+
+// Admin pages
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AdminOrders from "./pages/admin/AdminOrders";
 
 function App() {
   const location = useLocation();
@@ -59,6 +65,14 @@ function App() {
         <Route path="/shop/contact" element={<ContactPage />} />
         <Route path="/shop/faq" element={<FAQPage />} />
         <Route path="/shop/track-order" element={<TrackOrderPage />} />
+        <Route path="/shop/orders" element={<MyOrdersPage />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
+
+
 
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/shop" />} />

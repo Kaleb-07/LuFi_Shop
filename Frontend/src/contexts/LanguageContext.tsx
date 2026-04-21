@@ -29,6 +29,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.signIn": "Sign In",
     "nav.signOut": "Sign Out",
     "nav.profileSettings": "Profile Settings",
+    "nav.myOrders": "My Orders",
     "nav.pages": "Pages",
 
     // Hero
@@ -302,6 +303,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.signIn": "ይግቡ",
     "nav.signOut": "ይውጡ",
     "nav.profileSettings": "የመገለጫ ቅንብሮች",
+    "nav.myOrders": "የእኔ ትዕዛዞች",
     "nav.pages": "ገጾች",
 
     // Hero
@@ -574,6 +576,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.signIn": "Seenaa",
     "nav.signOut": "Ba'aa",
     "nav.profileSettings": "Qindaa'ina Profaayilii",
+    "nav.myOrders": "Ajajaalee Koo",
     "nav.pages": "Fuulaalee",
 
     // Hero

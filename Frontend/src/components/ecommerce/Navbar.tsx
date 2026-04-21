@@ -181,6 +181,11 @@ const Navbar = () => {
                     <Settings className="h-4 w-4" /> {t("nav.profileSettings")}
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/shop/orders" className="flex items-center gap-2 cursor-pointer">
+                    <ShoppingBag className="h-4 w-4" /> {t("nav.myOrders")}
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => logout()} className="text-destructive focus:text-destructive cursor-pointer">
                   <LogOut className="mr-2 h-4 w-4" /> {t("nav.signOut")}

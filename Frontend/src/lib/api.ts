@@ -1,8 +1,8 @@
 // Backend API base URL — set in .env as VITE_API_BASE_URL
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL ||
-  import.meta.env.VITE_API_URL + "/api" ||
-  "http://localhost:8000/api";
+  (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL + "/api" : null) ||
+  "http://127.0.0.1:8000/api";
 
 export async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const token = localStorage.getItem("auth_token");
@@ -36,6 +36,43 @@ export interface Product {
   part_number?: string;
 }
 
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  icon_name?: string;
+  items_count?: number;
+}
+
+export interface Brand {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface Order {
+  id: number;
+  order_number: string;
+  customer_name: string; // Used as a display helper
+  email: string;
+  phone: string;
+  shipping_address: string;
+  payment_method: string;
+  payment_status?: string;
+  total_amount: number;
+  status: string;
+  created_at: string;
+  items?: OrderItem[];
+}
+
+export interface OrderItem {
+  id: number;
+  product_id: number;
+  quantity: number;
+  price: number;
+  product?: Product;
+}
+
 export interface CartItem {
   product: Product;
   quantity: number;
@@ -47,13 +84,47 @@ export interface CartItem {
 
 /** Fetches all visible ecommerce products from the backend */
 export async function fetchEcommerceProducts(): Promise<Product[]> {
-  const data = await apiFetch<Product[]>("/ecommerce");
-  // Only show products where is_visible is true (or undefined = treat as visible)
-  return data.filter((p) => p.is_visible !== false);
+  return await apiFetch<Product[]>("/ecommerce");
 }
 
 /** Fetches a single product by its numeric id */
 export async function fetchProductById(id: number): Promise<Product | null> {
-  const data = await apiFetch<Product[]>("/ecommerce");
-  return data.find((p) => p.id === id) ?? null;
+  try {
+    return await apiFetch<Product>(`/ecommerce/${id}`);
+  } catch (err) {
+    console.error("Product not found", err);
+    return null;
+  }
 }
+
+/** Fetches all categories */
+export async function fetchCategories(): Promise<Category[]> {
+  return await apiFetch<Category[]>("/categories");
+}
+
+/** Fetches all brands */
+export async function fetchBrands(): Promise<Brand[]> {
+  return await apiFetch<Brand[]>("/brands");
+}
+
+/** Submits a new order */
+export async function createOrder(orderData: any): Promise<Order> {
+  return await apiFetch<Order>("/orders", {
+    method: "POST",
+    body: JSON.stringify(orderData),
+  });
+}
+
+/** Tracks an order by its order number */
+export async function fetchOrderDetails(orderNumber: string): Promise<Order> {
+  return await apiFetch<Order>(`/orders/${orderNumber}`);
+}
+
+/**
+ * Fetches orders for the currently authenticated user.
+ */
+export async function fetchUserOrders(): Promise<Order[]> {
+  const data = await apiFetch<Order[]>("/user/orders");
+  return data || [];
+}
+

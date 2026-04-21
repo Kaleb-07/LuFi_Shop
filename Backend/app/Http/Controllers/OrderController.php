@@ -87,7 +87,25 @@ class OrderController extends Controller
         $order = Order::with('items.product')
             ->where('order_number', $orderNumber)
             ->firstOrFail();
-
         return response()->json($order);
+    }
+
+    /**
+     * Get orders for the authenticated user.
+     */
+    public function userOrders(Request $request)
+    {
+        $user = $request->user();
+        
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        $orders = Order::with('items.product')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->get();
+
+        return response()->json($orders);
     }
 }

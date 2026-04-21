@@ -19,32 +19,6 @@ const MOCK_REVIEWS = [
   { id: 3, name: "Yonas K.", rating: 5, comment: "Exceeded my expectations. The color is exactly as shown in the photos.", date: "Feb 20, 2026" },
 ];
 
-// ─── Demo product shown when API is not yet connected ────────────────────────
-const DEMO_PRODUCT = {
-  id: 0,
-  item_name: "Pro Gaming Mechanical Keyboard RGB",
-  brand_name: "Yanol Tech",
-  category_name: "Keyboards",
-  price: 149,
-  stock_quantity: 24,
-  description: "Experience the ultimate gaming precision with our Pro Mechanical Keyboard. Features Cherry MX switches, per-key RGB lighting, and an aerospace-grade aluminium body built to last for 100 million keystrokes.",
-  images: [
-    "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=800&q=80",
-    "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=800&q=80",
-    "https://images.unsplash.com/photo-1562976540-1502c2145186?w=800&q=80",
-    "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80",
-  ],
-};
-
-// ─── Demo similar products shown when API is not yet connected ───────────────
-const DEMO_SIMILAR = [
-  { id: 1, item_name: "HyperX Cloud II Headset", brand_name: "HyperX", price: 99, category_name: "Keyboards", images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80"] },
-  { id: 2, item_name: "Logitech G Pro X Mouse", brand_name: "Logitech", price: 79, category_name: "Keyboards", images: ["https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&q=80"] },
-  { id: 3, item_name: "Corsair Vengeance RGB RAM 32GB", brand_name: "Corsair", price: 129, category_name: "Keyboards", images: ["https://images.unsplash.com/photo-1562976540-1502c2145186?w=400&q=80"] },
-  { id: 4, item_name: "NVIDIA RTX 4080 GPU", brand_name: "NVIDIA", price: 1199, category_name: "Keyboards", images: ["https://images.unsplash.com/photo-1593642634402-b0eb5e2eebc9?w=400&q=80"] },
-  { id: 5, item_name: "Samsung 980 Pro NVMe SSD", brand_name: "Samsung", price: 89, category_name: "Keyboards", images: ["https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400&q=80"] },
-];
-
 // ─── Star Row helper ──────────────────────────────────────────────────────────
 const StarRow = ({ rating, size = 4 }: { rating: number; size?: number }) => (
   <div className="flex gap-0.5">
@@ -94,7 +68,10 @@ const SimilarCard = ({ product }: { product: any }) => {
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      onClick={() => window.scrollTo(0, 0) || navigate(`/shop/product/${product.id}`)}
+      onClick={() => {
+        window.scrollTo(0, 0);
+        navigate(`/shop/product/${product.id}`);
+      }}
       className="flex-shrink-0 w-52 cursor-pointer rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100"
     >
       <div className="relative h-44 w-full bg-gray-50">
@@ -145,30 +122,39 @@ const ProductDetail = () => {
     );
   }
 
-  // ── Fallback to DEMO when API not connected ──
-  const isDemo = isError || !product;
-  const displayProduct = isDemo ? DEMO_PRODUCT : product!;
+  // ── Error / Not Found ──
+  if (isError || !product) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="container py-32 text-center space-y-4">
+          <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
+          <h2 className="text-2xl font-bold">Product Not Found</h2>
+          <p className="text-gray-500">The product you are looking for does not exist or has been removed.</p>
+          <Button onClick={() => navigate("/shop")}>Back to Shop</Button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const displayProduct = product;
 
   // ── Derived data ──
   const images = displayProduct.images?.length
     ? displayProduct.images
     : [
       "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=800&q=80",
-      "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=800&q=80",
-      "https://images.unsplash.com/photo-1562976540-1502c2145186?w=800&q=80",
-      "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=800&q=80",
     ];
 
-  const similarProducts = isDemo
-    ? DEMO_SIMILAR
-    : (allProducts?.filter((p) => p.id !== displayProduct.id && p.category_name === displayProduct.category_name).slice(0, 8) ?? []);
+  const similarProducts = (allProducts?.filter((p) => p.id !== displayProduct.id && p.category_name === displayProduct.category_name).slice(0, 8) ?? []);
 
   const avgRating = Math.round(
     MOCK_REVIEWS.reduce((s, r) => s + r.rating, 0) / MOCK_REVIEWS.length
   );
 
   const handleAddToCart = () => {
-    if (!isDemo) for (let i = 0; i < qty; i++) addToCart(displayProduct as any);
+    for (let i = 0; i < qty; i++) addToCart(displayProduct as any);
     toast({ title: `${displayProduct.item_name} added to bag`, description: `Quantity: ${qty}` });
     navigate("/shop/cart");
   };
@@ -216,7 +202,7 @@ const ProductDetail = () => {
           <div className="flex flex-col gap-6 lg:gap-10 order-1 lg:order-1">
             <div className="grid grid-cols-1 lg:grid-cols-[100px_1fr] gap-6 lg:gap-8">
               <div className="flex lg:flex-col flex-row gap-3 order-2 lg:order-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] py-1 lg:py-0">
-                {images.map((src, i) => (
+                {images.map((src: string, i: number) => (
                   <motion.button
                     key={i}
                     whileHover={{ scale: 1.05 }}
@@ -263,7 +249,7 @@ const ProductDetail = () => {
 
                 {/* Dot indicators */}
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
-                  {images.map((_, i) => (
+                  {images.map((_: any, i: number) => (
                     <button
                       key={i}
                       onClick={() => setActiveImg(i)}
