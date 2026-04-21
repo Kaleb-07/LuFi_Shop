@@ -18,6 +18,8 @@ class EcommerceItem extends Model
         'images',
         'category_name',
         'brand_name',
+        'category_id',
+        'brand_id',
         'is_visible',
         'part_number',
     ];
@@ -27,5 +29,17 @@ class EcommerceItem extends Model
         'is_visible' => 'boolean',
         'price' => 'float',
         'stock_quantity' => 'integer',
+        'category_id' => 'integer',
+        'brand_id' => 'integer',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

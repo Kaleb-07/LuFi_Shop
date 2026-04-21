@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\EcommerceItem;
+use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Database\Seeder;
 
 class EcommerceItemSeeder extends Seeder
@@ -75,8 +77,14 @@ class EcommerceItemSeeder extends Seeder
             ],
         ];
 
-        foreach ($products as $product) {
-            EcommerceItem::create($product);
+        foreach ($products as $productData) {
+            $category = Category::where('name', $productData['category_name'])->first();
+            $brand = Brand::where('name', $productData['brand_name'])->first();
+
+            $productData['category_id'] = $category?->id;
+            $productData['brand_id'] = $brand?->id;
+
+            EcommerceItem::create($productData);
         }
     }
 }
