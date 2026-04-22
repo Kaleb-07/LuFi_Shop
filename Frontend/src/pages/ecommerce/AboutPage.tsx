@@ -429,7 +429,7 @@ const AboutPage = () => {
                 </ul>
 
                 <a
-                  href="/shop"
+                  href="/"
                   className="inline-flex items-center text-green-500 font-semibold hover:gap-3 transition-all gap-2 group/link"
                 >
                   Start shopping

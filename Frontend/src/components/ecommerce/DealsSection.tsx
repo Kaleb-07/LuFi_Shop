@@ -69,7 +69,7 @@ const DealsSection = () => {
                                 key={product.id}
                                 className="min-w-[280px] snap-start"
                             >
-                                <Link to={`/shop/product/${product.id}`} className="block h-full group">
+                                <Link to={`/product/${product.id}`} className="block h-full group">
                                     <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-[#F9FAFB] border border-neutral-100 transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-neutral-200/50 group-hover:-translate-y-2">
                                         <div className="absolute inset-0 p-8 flex items-center justify-center">
                                             <img

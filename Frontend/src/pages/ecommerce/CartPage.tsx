@@ -22,7 +22,7 @@ const CartPage = () => {
             </div>
             <h1 className="text-2xl font-bold text-foreground">{t("cart.empty")}</h1>
             <p className="mt-2 text-muted-foreground">{t("cart.emptyDesc")}</p>
-            <Link to="/shop">
+            <Link to="/">
               <Button className="mt-6 gold-gradient text-primary-foreground font-semibold px-8 hover:opacity-90">
                 {t("cart.startShopping")} <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -39,7 +39,7 @@ const CartPage = () => {
       <Navbar />
       <main className="container py-8 pt-20">
         <div className="mb-8">
-          <Link to="/shop" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
+          <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
             <ArrowLeft className="h-4 w-4" /> {t("cart.continueShopping")}
           </Link>
           <h1 className="text-3xl font-bold text-foreground">{t("cart.title")}</h1>
@@ -49,12 +49,12 @@ const CartPage = () => {
           <div className="lg:col-span-2 space-y-4">
             {items.map(({ product, quantity }, i) => (
               <motion.div key={product.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3, delay: i * 0.05 }} className="flex gap-4 rounded-2xl border border-border bg-card p-4 transition-all hover:border-primary/20">
-                <Link to={`/shop/product/${product.id}`} className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-secondary/20">
+                <Link to={`/product/${product.id}`} className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-secondary/20">
                   <img src={product.images?.[0] || "https://images.unsplash.com/photo-1555617981-dac3880eac6e?w=400&h=400&fit=crop"} alt={product.item_name} className="h-full w-full object-cover" />
                 </Link>
                 <div className="flex flex-1 flex-col justify-between">
                   <div>
-                    <Link to={`/shop/product/${product.id}`} className="font-semibold text-foreground hover:text-primary transition-colors">{product.item_name}</Link>
+                    <Link to={`/product/${product.id}`} className="font-semibold text-foreground hover:text-primary transition-colors">{product.item_name}</Link>
                     <p className="text-xs text-primary/70 uppercase tracking-wider">{product.brand_name || t("common.noBrand")}</p>
                   </div>
                   <div className="flex items-center justify-between">
@@ -81,7 +81,7 @@ const CartPage = () => {
             <div className="flex justify-between font-bold text-lg text-foreground">
               <span>{t("cart.total")}</span><span>ETB {totalPrice.toFixed(2)}</span>
             </div>
-            <Link to="/shop/checkout">
+            <Link to="/checkout">
               <Button className="mt-6 w-full gold-gradient text-primary-foreground font-semibold h-12 text-base hover:opacity-90 transition-opacity">{t("cart.checkout")}</Button>
             </Link>
           </motion.div>

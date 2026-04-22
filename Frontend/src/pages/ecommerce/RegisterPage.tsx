@@ -93,7 +93,7 @@ const RegisterPage = () => {
                 </Button>
                 <p className="text-sm text-muted-foreground">
                   {t("register.hasAccount")}{" "}
-                  <Link to="/shop/login" className="font-medium text-primary hover:underline">{t("register.signIn")}</Link>
+                  <Link to="/login" className="font-medium text-primary hover:underline">{t("register.signIn")}</Link>
                 </p>
               </CardFooter>
             </form>

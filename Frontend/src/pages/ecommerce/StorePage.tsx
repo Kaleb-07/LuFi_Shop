@@ -338,7 +338,7 @@ const StorePage = () => {
                   exit={{ opacity: 0, y: -10 }}
                   className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400 mb-1"
                 >
-                  <Link to="/shop" className="hover:text-primary transition-colors">{t("nav.store")}</Link>
+                  <Link to="/" className="hover:text-primary transition-colors">{t("nav.store")}</Link>
                   <ChevronDown className="h-3 w-3 -rotate-90" />
                   <button
                     onClick={() => {
@@ -528,7 +528,7 @@ const StorePage = () => {
                       exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.4, delay: idx * 0.05 }}
                     >
-                    <Link to={`/shop/product/${product.id}`}>
+                    <Link to={`/product/${product.id}`}>
                       <Card className="group relative h-full overflow-hidden border-none bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] rounded-3xl">
                         <div className="relative aspect-square overflow-hidden bg-neutral-100">
                           <img

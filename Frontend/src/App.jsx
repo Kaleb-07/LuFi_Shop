@@ -25,6 +25,9 @@ import MyOrdersPage from "./pages/ecommerce/MyOrdersPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminOrders from "./pages/admin/AdminOrders";
+import AdminCustomers from "./pages/admin/AdminCustomers";
+import AdminStaff from "./pages/admin/AdminStaff";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 function App() {
   const location = useLocation();
@@ -49,33 +52,32 @@ function App() {
       />
 
       <Routes>
-        {/* Redirect root to the shop context since it's an ecommerce only project now */}
-        <Route path="/" element={<Navigate to="/shop" />} />
-
         {/*Ecommerce Routes*/}
-        <Route path="/shop" element={<ShopHome />} />
-        <Route path="/shop/store" element={<StorePage />} />
-        <Route path="/shop/product/:id" element={<ProductDetail />} />
-        <Route path="/shop/cart" element={<CartPage />} />
-        <Route path="/shop/checkout" element={<CheckoutPage />} />
-        <Route path="/shop/login" element={<LoginPage />} />
-        <Route path="/shop/register" element={<RegisterPage />} />
-        <Route path="/shop/profile" element={<ProfilePage />} />
-        <Route path="/shop/about" element={<AboutPage />} />
-        <Route path="/shop/contact" element={<ContactPage />} />
-        <Route path="/shop/faq" element={<FAQPage />} />
-        <Route path="/shop/track-order" element={<TrackOrderPage />} />
-        <Route path="/shop/orders" element={<MyOrdersPage />} />
+        <Route path="/" element={<ShopHome />} />
+        <Route path="/shop" element={<Navigate to="/" />} />
+        <Route path="/store" element={<StorePage />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/track-order" element={<TrackOrderPage />} />
+        <Route path="/orders" element={<MyOrdersPage />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
-
-
+        <Route path="/admin/customers" element={<AdminCustomers />} />
+        <Route path="/admin/staff" element={<AdminStaff />} />
+        <Route path="/admin/settings" element={<AdminSettings />} />
 
         {/* Fallback route */}
-        <Route path="*" element={<Navigate to="/shop" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );

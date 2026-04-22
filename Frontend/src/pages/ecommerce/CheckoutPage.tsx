@@ -13,7 +13,7 @@ import { ArrowLeft, CreditCard, Banknote, Lock, CheckCircle } from "lucide-react
 import { createOrder } from "../../lib/api";
 
 const CheckoutPage = () => {
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, totalPrice, clearCart, shippingFee, totalTax, grandTotal, currency } = useCart();
   const { t } = useLanguage();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -69,8 +69,8 @@ const CheckoutPage = () => {
             {orderNumber}
           </div>
           <div className="flex gap-4">
-            <Button onClick={() => navigate("/shop")}>Continue Shopping</Button>
-            <Button variant="outline" onClick={() => navigate(`/shop/track?id=${orderNumber}`)}>Track Order</Button>
+            <Button onClick={() => navigate("/")}>Continue Shopping</Button>
+            <Button variant="outline" onClick={() => navigate(`/track-order?id=${orderNumber}`)}>Track Order</Button>
           </div>
         </main>
         <Footer />
@@ -79,7 +79,7 @@ const CheckoutPage = () => {
   }
 
   if (items.length === 0) {
-    navigate("/shop/cart");
+    navigate("/cart");
     return null;
   }
 
@@ -87,7 +87,7 @@ const CheckoutPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="container py-8 pt-20">
-        <Link to="/shop/cart" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
+        <Link to="/cart" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4">
           <ArrowLeft className="h-4 w-4" /> {t("checkout.backToCart")}
         </Link>
         <h1 className="mb-8 text-3xl font-bold text-foreground">{t("checkout.title")}</h1>
@@ -147,7 +147,7 @@ const CheckoutPage = () => {
 
             <Button type="submit" disabled={loading} className="w-full gold-gradient text-primary-foreground font-semibold h-12 text-base hover:opacity-90 transition-opacity">
               <Lock className="mr-2 h-4 w-4" />
-              {loading ? t("checkout.placing") : `${t("checkout.pay")} ETB ${totalPrice.toFixed(2)}`}
+              {loading ? t("checkout.placing") : `${t("checkout.pay")} ${currency} ${grandTotal.toFixed(2)}`}
             </Button>
           </form>
 
@@ -163,18 +163,19 @@ const CheckoutPage = () => {
                     <p className="text-sm font-medium text-foreground truncate">{product.item_name}</p>
                     <p className="text-xs text-muted-foreground">{t("checkout.qty")}: {quantity}</p>
                   </div>
-                  <span className="text-sm font-semibold text-foreground">ETB {(product.price * quantity).toFixed(2)}</span>
+                  <span className="text-sm font-semibold text-foreground">{currency} {(product.price * quantity).toFixed(2)}</span>
                 </div>
               ))}
             </div>
             <div className="my-5 border-t border-border" />
             <div className="space-y-2 text-sm">
-              <div className="flex justify-between"><span className="text-muted-foreground">{t("cart.subtotal")}</span><span>ETB {totalPrice.toFixed(2)}</span></div>
-              <div className="flex justify-between"><span className="text-muted-foreground">{t("cart.shipping")}</span><span className="text-primary font-medium">{t("cart.free")}</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">{t("cart.subtotal")}</span><span>{currency} {totalPrice.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">Tax</span><span>{currency} {totalTax.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span className="text-muted-foreground">{t("cart.shipping")}</span><span className="text-foreground">{shippingFee > 0 ? `${currency} ${shippingFee.toFixed(2)}` : t("cart.free")}</span></div>
             </div>
             <div className="my-4 border-t border-border" />
             <div className="flex justify-between font-bold text-lg text-foreground">
-              <span>{t("cart.total")}</span><span>ETB {totalPrice.toFixed(2)}</span>
+              <span>{t("cart.total")}</span><span>{currency} {grandTotal.toFixed(2)}</span>
             </div>
           </motion.div>
         </div>

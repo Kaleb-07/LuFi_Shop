@@ -20,7 +20,7 @@ const MyOrdersPage = () => {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      navigate("/shop/login");
+      navigate("/login");
       return;
     }
 
@@ -81,7 +81,7 @@ const MyOrdersPage = () => {
       <Navbar />
       <main className="container py-8 pt-24 max-w-5xl">
         <header className="mb-10">
-          <Link to="/shop" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-4 group">
+          <Link to="/" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-4 group">
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Back to Shop
           </Link>
@@ -117,7 +117,7 @@ const MyOrdersPage = () => {
                     <h2 className="text-2xl font-bold">No orders yet</h2>
                     <p className="text-muted-foreground max-w-xs mx-auto">Looks like you haven't made any purchases yet. Your history will appear here!</p>
                 </div>
-                <Button onClick={() => navigate("/shop/store")} className="gold-gradient text-primary-foreground font-bold rounded-xl px-8 h-12 shadow-lg shadow-primary/20">
+                <Button onClick={() => navigate("/store")} className="gold-gradient text-primary-foreground font-bold rounded-xl px-8 h-12 shadow-lg shadow-primary/20">
                     Start Shopping
                 </Button>
             </div>
@@ -154,7 +154,7 @@ const MyOrdersPage = () => {
 
                             <div className="flex items-center border-t border-border pt-4 sm:border-0 sm:pt-0">
                                 <Button
-                                    onClick={() => navigate(`/shop/track-order?id=${order.order_number}`)}
+                                    onClick={() => navigate(`/track-order?id=${order.order_number}`)}
                                     variant="ghost" 
                                     className="h-12 w-full rounded-2xl bg-primary/5 px-6 font-bold text-primary transition-all hover:bg-primary hover:text-white sm:w-auto"
                                 >

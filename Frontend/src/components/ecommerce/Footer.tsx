@@ -31,20 +31,20 @@ const Footer = () => {
           <div>
             <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-foreground">{t("footer.shop")}</h3>
             <ul className="space-y-4 text-sm font-medium text-muted-foreground">
-              <li><Link to="/shop/?category=electronics" className="hover:text-primary transition-colors">Electronics</Link></li>
-              <li><Link to="/shop/?category=fashion" className="hover:text-primary transition-colors">Fashion</Link></li>
-              <li><Link to="/shop/?category=accessories" className="hover:text-primary transition-colors">Accessories</Link></li>
-              <li><Link to="/shop/?category=gadgets" className="hover:text-primary transition-colors">Gadgets</Link></li>
+              <li><Link to="/?category=electronics" className="hover:text-primary transition-colors">Electronics</Link></li>
+              <li><Link to="/?category=fashion" className="hover:text-primary transition-colors">Fashion</Link></li>
+              <li><Link to="/?category=accessories" className="hover:text-primary transition-colors">Accessories</Link></li>
+              <li><Link to="/?category=gadgets" className="hover:text-primary transition-colors">Gadgets</Link></li>
             </ul>
           </div>
 
           <div>
             <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-foreground">{t("footer.support")}</h3>
             <ul className="space-y-4 text-sm font-medium text-muted-foreground">
-              <li><Link to="/shop/faq" className="hover:text-primary transition-colors">{t("nav.faq")}</Link></li>
-              <li><Link to="/shop/contact" className="hover:text-primary transition-colors">{t("footer.contactUs")}</Link></li>
-              <li><Link to="/shop/track-order" className="hover:text-primary transition-colors">{t("nav.trackOrder")}</Link></li>
-              <li><Link to="/shop/about" className="hover:text-primary transition-colors">About Us</Link></li>
+              <li><Link to="/faq" className="hover:text-primary transition-colors">{t("nav.faq")}</Link></li>
+              <li><Link to="/contact" className="hover:text-primary transition-colors">{t("footer.contactUs")}</Link></li>
+              <li><Link to="/track-order" className="hover:text-primary transition-colors">{t("nav.trackOrder")}</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
             </ul>
           </div>
 

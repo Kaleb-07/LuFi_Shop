@@ -75,7 +75,7 @@ const LoginPage = () => {
                 </Button>
                 <p className="text-sm text-muted-foreground">
                   {t("login.noAccount")}{" "}
-                  <Link to="/shop/register" className="font-medium text-primary hover:underline">{t("login.signUp")}</Link>
+                  <Link to="/register" className="font-medium text-primary hover:underline">{t("login.signUp")}</Link>
                 </p>
               </CardFooter>
             </form>

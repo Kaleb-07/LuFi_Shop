@@ -28,4 +28,19 @@ class EcommerceController extends Controller
         
         return response()->json($item);
     }
+
+    public function settings()
+    {
+        $filePath = storage_path('app/settings.json');
+        if (!file_exists($filePath)) {
+            return response()->json([
+                'shop_name' => 'LuFi Shop',
+                'currency' => 'ETB',
+                'tax_rate' => '0',
+                'shipping_fee' => '0'
+            ]);
+        }
+        $settings = json_decode(file_get_contents($filePath), true);
+        return response()->json($settings);
+    }
 }

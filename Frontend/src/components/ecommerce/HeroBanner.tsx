@@ -33,12 +33,12 @@ const HeroBanner = () => {
             </h1>
             <p className="text-base text-muted-foreground md:text-lg max-w-md">{t("hero.desc")}</p>
             <div className="flex gap-3">
-              <Link to="/shop/?category=laptops">
+              <Link to="/?category=laptops">
                 <Button size="lg" className="gold-gradient text-primary-foreground font-semibold px-8 shadow-lg hover:opacity-90 transition-opacity">
                   {t("hero.shopNow")} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link to="/shop/about">
+              <Link to="/about">
                 <Button size="lg" variant="outline" className="border-border/50 text-foreground hover:bg-secondary">
                   {t("hero.learnMore")}
                 </Button>

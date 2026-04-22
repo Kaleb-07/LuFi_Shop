@@ -54,7 +54,7 @@ const ModernHero = () => {
                                     whileHover={{ y: -4 }}
                                 >
                                     <Card 
-                                        onClick={() => navigate('/shop/store')}
+                                        onClick={() => navigate('/store')}
                                         className="group cursor-pointer overflow-hidden border-border/40 bg-secondary/20 transition-all hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 rounded-2xl"
                                     >
                                             <CardContent className="p-0">
@@ -84,7 +84,7 @@ const ModernHero = () => {
 
                     {/* Right Side: Hero Image */}
                     <div className="relative flex-1">
-                        <Link to="/shop/store">
+                        <Link to="/store">
                             <motion.div
                                 initial={{ opacity: 0, x: 50, scale: 0.9 }}
                                 animate={{ opacity: 1, x: 0, scale: 1 }}

@@ -8,37 +8,37 @@ const trendingCategories = [
     { 
         name: "Laptops", 
         image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=1000", 
-        link: "/shop/store?category=Electronics" 
+        link: "/store?category=Electronics" 
     },
     { 
         name: "Computer parts", 
         image: "https://images.unsplash.com/photo-1591799272175-0fa6d302c61f?auto=format&fit=crop&q=80&w=1000", 
-        link: "/shop/store?category=Gadgets" 
+        link: "/store?category=Gadgets" 
     },
     { 
         name: "Smartphones", 
         image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=1000", 
-        link: "/shop/store?category=Electronics" 
+        link: "/store?category=Electronics" 
     },
     { 
         name: "Enterprise networking", 
         image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000", 
-        link: "/shop/store?category=Electronics" 
+        link: "/store?category=Electronics" 
     },
     { 
         name: "Tablets and eBooks", 
         image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&q=80&w=1000", 
-        link: "/shop/store?category=Electronics" 
+        link: "/store?category=Electronics" 
     },
     { 
         name: "Storage and blank media", 
         image: "https://images.unsplash.com/photo-1588508065123-287b28e013da?auto=format&fit=crop&q=80&w=1000", 
-        link: "/shop/store?category=Electronics" 
+        link: "/store?category=Electronics" 
     },
     { 
         name: "Lenses and filters", 
         image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1000", 
-        link: "/shop/store?category=Accessories" 
+        link: "/store?category=Accessories" 
     },
 ];
 

@@ -11,7 +11,7 @@ const slides = [
         subtitle: "Power through every task with our premium laptop collection",
         badge: "New Arrivals",
         buttonText: "Shop Now",
-        link: "/shop/store",
+        link: "/store",
         position: "left",
         accent: "from-blue-900/80 via-blue-900/40 to-transparent"
     },
@@ -21,7 +21,7 @@ const slides = [
         subtitle: "Discover flagship phones that redefine what's possible",
         badge: "Hot Deals",
         buttonText: "View Collection",
-        link: "/shop/store",
+        link: "/store",
         position: "right",
         accent: "from-purple-900/80 via-purple-900/40 to-transparent"
     },
@@ -31,7 +31,7 @@ const slides = [
         subtitle: "Level up your game with cutting-edge peripherals & gear",
         badge: "Top Picks",
         buttonText: "Shop Laptop",
-        link: "/shop/store",
+        link: "/store",
         position: "left",
         accent: "from-green-900/80 via-green-900/40 to-transparent"
     }

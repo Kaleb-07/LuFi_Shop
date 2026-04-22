@@ -69,7 +69,21 @@ class OrderController extends Controller
                 $product->decrement('stock_quantity', $itemData['quantity']);
             }
 
-            $order->update(['total_amount' => $totalAmount]);
+            // Apply Tax and Shipping from settings
+            $filePath = storage_path('app/settings.json');
+            $taxRate = 0;
+            $shippingFee = 0;
+
+            if (file_exists($filePath)) {
+                $settings = json_decode(file_get_contents($filePath), true);
+                $taxRate = isset($settings['tax_rate']) ? (float)$settings['tax_rate'] / 100 : 0;
+                $shippingFee = isset($settings['shipping_fee']) ? (float)$settings['shipping_fee'] : 0;
+            }
+
+            $totalTax = $totalAmount * $taxRate;
+            $grandTotal = $totalAmount + $totalTax + $shippingFee;
+
+            $order->update(['total_amount' => $grandTotal]);
 
             return response()->json([
                 'message' => 'Order placed successfully',

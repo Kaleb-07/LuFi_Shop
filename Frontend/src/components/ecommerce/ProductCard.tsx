@@ -26,7 +26,7 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
       className="group"
     >
       <Card className="h-full overflow-hidden border-border/30 bg-white transition-all duration-300 hover:border-primary/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2rem]">
-        <Link to={`/shop/product/${product.id}`} className="block">
+        <Link to={`/product/${product.id}`} className="block">
           <div className="relative aspect-square overflow-hidden bg-secondary/20">
             <img
               src={product.images?.[0] || "/images/default.jpg"}
@@ -57,7 +57,7 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
                 <span className="text-[10px] font-bold text-foreground">4.8</span>
               </div>
             </div>
-            <Link to={`/shop/product/${product.id}`}>
+            <Link to={`/product/${product.id}`}>
               <h3 className="font-heading text-lg font-bold leading-tight text-foreground transition-colors hover:text-primary line-clamp-1">
                 {product.item_name}
               </h3>

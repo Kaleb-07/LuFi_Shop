@@ -70,7 +70,7 @@ const SimilarCard = ({ product }: { product: any }) => {
       whileHover={{ y: -4 }}
       onClick={() => {
         window.scrollTo(0, 0);
-        navigate(`/shop/product/${product.id}`);
+        navigate(`/product/${product.id}`);
       }}
       className="flex-shrink-0 w-52 cursor-pointer rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100"
     >
@@ -131,7 +131,7 @@ const ProductDetail = () => {
           <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
           <h2 className="text-2xl font-bold">Product Not Found</h2>
           <p className="text-gray-500">The product you are looking for does not exist or has been removed.</p>
-          <Button onClick={() => navigate("/shop")}>Back to Shop</Button>
+          <Button onClick={() => navigate("/")}>Back to Shop</Button>
         </div>
         <Footer />
       </div>
@@ -156,7 +156,7 @@ const ProductDetail = () => {
   const handleAddToCart = () => {
     for (let i = 0; i < qty; i++) addToCart(displayProduct as any);
     toast({ title: `${displayProduct.item_name} added to bag`, description: `Quantity: ${qty}` });
-    navigate("/shop/cart");
+    navigate("/cart");
   };
 
   const prevImg = () => setActiveImg((p) => (p === 0 ? images.length - 1 : p - 1));
@@ -172,11 +172,11 @@ const ProductDetail = () => {
             SECTION 1 – BREADCRUMB
         ══════════════════════════════════════════════════════ */}
         <nav className="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
-          <Link to="/shop" className="hover:text-primary transition-colors">Store</Link>
+          <Link to="/" className="hover:text-primary transition-colors">Store</Link>
           <ChevronRight className="h-3.5 w-3.5" />
           {displayProduct.category_name && (
             <>
-              <Link to={`/shop?category=${displayProduct.category_name}`} className="hover:text-primary transition-colors capitalize">
+              <Link to={`/?category=${displayProduct.category_name}`} className="hover:text-primary transition-colors capitalize">
                 {displayProduct.category_name}
               </Link>
               <ChevronRight className="h-3.5 w-3.5" />
@@ -184,7 +184,7 @@ const ProductDetail = () => {
           )}
           {displayProduct.brand_name && (
             <>
-              <Link to={`/shop?brand=${displayProduct.brand_name}`} className="hover:text-primary transition-colors capitalize">
+              <Link to={`/?brand=${displayProduct.brand_name}`} className="hover:text-primary transition-colors capitalize">
                 {displayProduct.brand_name}
               </Link>
               <ChevronRight className="h-3.5 w-3.5" />
@@ -526,7 +526,7 @@ const ProductDetail = () => {
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-semibold text-gray-900">Similar Items</h2>
                 <Link
-                  to={`/shop?category=${displayProduct.category_name}`}
+                  to={`/?category=${displayProduct.category_name}`}
                   className="text-sm text-primary font-medium hover:underline flex items-center gap-1"
                 >
                   View all <ArrowRight className="h-4 w-4" />
@@ -546,7 +546,7 @@ const ProductDetail = () => {
         {/* ── Back to Shop Button (Bottom) ── */}
         <div className="pt-12 pb-8 flex justify-center">
           <button
-            onClick={() => navigate("/shop")}
+            onClick={() => navigate("/")}
             className="group flex items-center gap-2.5 px-8 py-3 rounded-full bg-white border border-gray-200 text-gray-600 font-bold text-sm transition-all hover:bg-gray-50 hover:border-primary/30 hover:text-primary hover:shadow-xl hover:shadow-primary/5 active:scale-95"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />

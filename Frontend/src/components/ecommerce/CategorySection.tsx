@@ -24,7 +24,7 @@ const CategorySection = () => {
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
         {categories.map((cat, i) => (
           <motion.div key={cat.slug} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: i * 0.1 }}>
-            <Link to={`/shop/?category=${cat.slug}`} className="group relative flex flex-col items-center gap-4 rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-primary/40 hover:glow-accent">
+            <Link to={`/?category=${cat.slug}`} className="group relative flex flex-col items-center gap-4 rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:border-primary/40 hover:glow-accent">
               <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-secondary/50 p-3 transition-transform duration-300 group-hover:scale-110">
                 <cat.icon className="h-8 w-8 text-primary" />
                 <div className="absolute inset-0 rounded-full bg-primary/5 opacity-0 transition-opacity group-hover:opacity-100" />

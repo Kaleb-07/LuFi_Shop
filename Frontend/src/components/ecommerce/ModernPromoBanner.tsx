@@ -22,7 +22,7 @@ const ModernPromoBanner = () => {
                                 Enjoy up to 20% off luxury tech pieces that will always turn heads.
                             </p>
                             <div className="mt-12">
-                                <Link to="/shop/store">
+                                <Link to="/store">
                                     <button className="rounded-full bg-black px-12 py-5 text-xl font-black text-white transition-all hover:scale-105 active:scale-95 shadow-2xl">
                                         Claim your classics
                                     </button>

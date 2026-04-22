@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 // Backend API base URL — set in .env as VITE_API_BASE_URL
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL ||
@@ -6,22 +7,54 @@ const API_BASE =
 
 export async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const token = localStorage.getItem("auth_token");
+  
+  // If the body is FormData, we let the browser set the Content-Type automatically (with boundary)
+  const isFormData = options?.body instanceof FormData;
+  
+  const headers: Record<string, string> = {
+    "Accept": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+
+  if (!isFormData) {
+    headers["Content-Type"] = "application/json";
+  }
+
   const res = await fetch(`${API_BASE}${endpoint}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options?.headers,
-    },
     ...options,
+    headers: {
+      ...headers,
+      ...options?.headers,
+    } as any,
   });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
+
+  if (!res.ok) {
+    let errorData;
+    try {
+      errorData = await res.json();
+    } catch (e) {
+      errorData = { message: `API error: ${res.status}` };
+    }
+    const error: any = new Error(errorData.message || `API error: ${res.status}`);
+    error.response = errorData;
+    error.status = res.status;
+    throw error;
+  }
+
   return res.json();
 }
 
 // ─────────────────────────────────────────────
-// Types — matches the Laravel EcommerceItem model
+// Types — matches the Laravel models
 // ─────────────────────────────────────────────
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  role?: string;
+  created_at?: string;
+}
+
 export interface Product {
   id: number;
   item_code: string;
@@ -33,6 +66,8 @@ export interface Product {
   category_name?: string;
   brand_name?: string;
   is_visible?: boolean;
+  category_id?: number;
+  brand_id?: number;
   part_number?: string;
 }
 
@@ -63,6 +98,7 @@ export interface Order {
   status: string;
   created_at: string;
   items?: OrderItem[];
+  user?: User;
 }
 
 export interface OrderItem {
@@ -105,6 +141,11 @@ export async function fetchCategories(): Promise<Category[]> {
 /** Fetches all brands */
 export async function fetchBrands(): Promise<Brand[]> {
   return await apiFetch<Brand[]>("/brands");
+}
+
+/** Fetches public store settings */
+export async function fetchPublicSettings(): Promise<any> {
+  return await apiFetch<any>("/ecommerce/settings");
 }
 
 /** Submits a new order */

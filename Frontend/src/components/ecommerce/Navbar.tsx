@@ -46,8 +46,8 @@ const Navbar = () => {
     
     // Only navigate if we are on the store page OR if there is a query
     // This prevents redirecting to store page when just clearing a search on other pages
-    if (location.pathname === "/shop/store" || query) {
-      navigate(`/shop/store?${params.toString()}`, { replace: true });
+    if (location.pathname === "/store" || query) {
+      navigate(`/store?${params.toString()}`, { replace: true });
     }
   };
 
@@ -62,16 +62,16 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: t("nav.store"), href: "/shop/store" },
-    { name: t("nav.about"), href: "/shop/about" },
-    { name: t("nav.contact"), href: "/shop/contact" },
+    { name: t("nav.store"), href: "/store" },
+    { name: t("nav.about"), href: "/about" },
+    { name: t("nav.contact"), href: "/contact" },
   ];
 
   const initials = user
     ? user.name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2)
     : "";
 
-  const isHomePage = location.pathname === "/shop" || location.pathname === "/shop/";
+  const isHomePage = location.pathname === "/" || location.pathname === "/";
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between gap-8">
         {/* Left Side: Logo & Links */}
         <div className="flex items-center gap-8">
-          <Link to="/shop" className="flex items-center gap-2.5 group transition-all duration-300 hover:opacity-90 active:scale-95">
+          <Link to="/" className="flex items-center gap-2.5 group transition-all duration-300 hover:opacity-90 active:scale-95">
             <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl gold-gradient shadow-lg shadow-primary/20 transition-all duration-500 group-hover:shadow-primary/40 group-hover:rotate-[10deg] group-hover:scale-110">
               <svg
                 viewBox="0 0 24 24"
@@ -108,16 +108,6 @@ const Navbar = () => {
               </svg>
               <div className="absolute inset-0 bg-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>
-            {/* <div className="flex flex-col -space-y-1.5 pt-0.5">
-              <span className="font-heading text-2xl font-black tracking-tight text-foreground sm:text-3xl">
-                <span className="gold-text">Yanol</span><span className="text-foreground">Store</span>
-              </span>
-              <div className="flex items-center gap-1.5">
-                <div className="h-[1px] w-6 bg-primary/30" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground/70">Premium Shop</span>
-                <div className="h-[1px] w-6 bg-primary/30" />
-              </div>
-            </div> */}
           </Link>
 
           <nav className="hidden items-center gap-6 lg:flex">
@@ -177,12 +167,12 @@ const Navbar = () => {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/shop/profile" className="flex items-center gap-2 cursor-pointer">
+                  <Link to="/profile" className="flex items-center gap-2 cursor-pointer">
                     <Settings className="h-4 w-4" /> {t("nav.profileSettings")}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/shop/orders" className="flex items-center gap-2 cursor-pointer">
+                  <Link to="/orders" className="flex items-center gap-2 cursor-pointer">
                     <ShoppingBag className="h-4 w-4" /> {t("nav.myOrders")}
                   </Link>
                 </DropdownMenuItem>
@@ -193,7 +183,7 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link to="/shop/login">
+            <Link to="/login">
               <Button variant="ghost" size="sm" className={`font-semibold hover:text-primary ${
                 isSolid ? "text-muted-foreground hover:bg-primary/5" : "text-white/90 hover:bg-white/15"
               }`}>
@@ -202,7 +192,7 @@ const Navbar = () => {
             </Link>
           )}
 
-          <Link to="/shop/cart" className="relative">
+          <Link to="/cart" className="relative">
             <Button variant="ghost" size="icon" className={`hover:text-primary ${
               isSolid ? "text-muted-foreground hover:bg-primary/5" : "text-white/90 hover:bg-white/15"
             }`}>
@@ -257,7 +247,7 @@ const Navbar = () => {
             ))}
           </nav>
           {!user && (
-            <Link to="/shop/login" onClick={() => setMobileOpen(false)}>
+            <Link to="/login" onClick={() => setMobileOpen(false)}>
               <Button className="w-full h-12 gold-gradient text-primary-foreground font-bold shadow-lg shadow-primary/20">
                 {t("nav.signIn")}
               </Button>

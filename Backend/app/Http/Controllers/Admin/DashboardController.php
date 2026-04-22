@@ -38,6 +38,8 @@ class DashboardController extends Controller
             ->orderBy('date')
             ->get();
 
+        $recentOrders = Order::latest()->take(5)->get();
+
         return response()->json([
             'stats' => [
                 'revenue' => $totalRevenue,
@@ -47,6 +49,7 @@ class DashboardController extends Controller
             ],
             'revenueChart' => $revenueChart,
             'orderChart' => $orderChart,
+            'recentOrders' => $recentOrders,
         ]);
     }
 }
