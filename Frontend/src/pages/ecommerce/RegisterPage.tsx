@@ -43,8 +43,24 @@ const RegisterPage = () => {
       await register(name, email, password, confirmPassword);
       toast({ title: t("register.title") + "!" });
       navigate("/");
-    } catch {
-      toast({ title: "Registration failed", variant: "destructive" });
+    } catch (err: any) {
+      // Extract the real Laravel validation message
+      // apiFetch stores the parsed JSON body in err.response
+      const response = err?.response;
+      let message = "Registration failed. Please try again.";
+      if (response?.errors) {
+        // Laravel returns field errors as { errors: { field: ["msg"] } }
+        const allErrors = Object.entries(response.errors as Record<string, string[]>)
+          .map(([field, msgs]) => `${field}: ${msgs[0]}`)
+          .join(" | ");
+        message = allErrors || message;
+      } else if (response?.message) {
+        message = response.message;
+      } else if (err?.message) {
+        message = err.message;
+      }
+      console.error("Registration error:", response); // helps debugging in console
+      toast({ title: message, variant: "destructive" });
     } finally {
       setLoading(false);
     }

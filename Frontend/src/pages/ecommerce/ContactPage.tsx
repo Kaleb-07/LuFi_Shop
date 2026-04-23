@@ -17,7 +17,7 @@ const ContactPage = () => {
   const contactInfo = [
     { icon: MapPin, title: "Our Location", value: "Addis Ababa, Ethiopia", desc: "Come visit our flagship store." },
     { icon: Phone, title: "Phone Number", value: "+251 942497990", desc: "We are available Mon-Fri, 9am-6pm." },
-    { icon: Mail, title: "Email Address", value: "yanoltech@gmail.com", desc: "We'll reply within 24 hours." },
+    { icon: Mail, title: "Email Address", value: "support@lufishop.com", desc: "We'll reply within 24 hours." },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {

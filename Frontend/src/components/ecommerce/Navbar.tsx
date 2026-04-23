@@ -95,20 +95,28 @@ const Navbar = () => {
         {/* Left Side: Logo & Links */}
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-2.5 group transition-all duration-300 hover:opacity-90 active:scale-95">
-            <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl gold-gradient shadow-lg shadow-primary/20 transition-all duration-500 group-hover:shadow-primary/40 group-hover:rotate-[10deg] group-hover:scale-110">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className="h-7 w-7 text-primary-foreground drop-shadow-md transition-transform duration-500 group-hover:scale-125"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <div className="absolute inset-0 bg-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl shadow-lg shadow-primary/20 transition-all duration-500 group-hover:shadow-primary/40 group-hover:rotate-[6deg] group-hover:scale-110 border border-primary/10">
+              <img
+                src="/favicon.svg"
+                alt="LuFi Shop"
+                className="h-full w-full object-cover"
+                onError={(e) => {
+                  // fallback to gradient cart icon if image not found
+                  e.currentTarget.style.display = "none";
+                  e.currentTarget.nextElementSibling?.classList.remove("hidden");
+                }}
+              />
+              <div className="hidden absolute inset-0 gold-gradient items-center justify-center">
+                <span className="text-primary-foreground font-black text-lg">LF</span>
+              </div>
+            </div>
+            <div className="hidden sm:flex flex-col leading-none">
+              <span className={`text-base font-black tracking-tight transition-colors ${isSolid ? "text-foreground" : "text-white"}`}>
+                LuFi <span className="text-primary">Shop</span>
+              </span>
             </div>
           </Link>
+
 
           <nav className="hidden items-center gap-6 lg:flex">
             {navLinks.map((link) => (

@@ -183,7 +183,7 @@ const AboutPage = () => {
                 className="space-y-8"
               >
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 leading-tight">
-                  Why Choose <span className="text-primary">Yanol</span>
+                  Why Choose <span className="text-primary">LuFi Shop</span>
                 </h2>
 
                 <div className="space-y-6">
@@ -314,7 +314,7 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Section 3 – How Btsy Tech Works */}
+        {/* Section 3 – How LuFi Shop Works */}
         <section className="py-20 bg-gradient-to-b from-white to-gray-50">
           <div className="container max-w-7xl mx-auto px-4">
             {/* Header */}
@@ -328,7 +328,7 @@ const AboutPage = () => {
                 Simple Process
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                How yanol Works
+                How LuFi Shop Works
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
                 Your premier destination for high-performance PC components, gaming peripherals,

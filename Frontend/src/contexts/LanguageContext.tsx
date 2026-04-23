@@ -50,7 +50,7 @@ const translations: Record<Language, Record<string, string>> = {
     "cat.components": "PC Components",
 
     // Why Choose Us
-    "why.subtitle": "Why TechStore",
+    "why.subtitle": "Why LuFi Shop",
     "why.title": "Built for Tech Lovers",
     "why.desc": "We're more than just a store — we're your trusted partner in finding the perfect tech.",
     "why.freeShipping": "Free Shipping",
@@ -66,7 +66,7 @@ const translations: Record<Language, Record<string, string>> = {
     "brand.aboutUs": "About Us",
     "brand.title1": "Your Premium ",
     "brand.title2": "Tech Destination",
-    "brand.desc1": "TechStore brings together the world's top technology brands under one roof. From powerful laptops to cutting-edge smartphones, we curate only the best products — rigorously tested and backed by expert reviews.",
+    "brand.desc1": "LuFi Shop brings together the world's top quality products under one roof. From electronics to accessories, we curate only the best — rigorously selected and backed by expert reviews.",
     "brand.desc2": "Whether you're a gamer, a creative professional, or simply love gadgets, we have something for you. With fast shipping, easy returns, and dedicated support, shopping with us is effortless.",
     "brand.learnMore": "Learn More",
     "brand.happyCustomers": "Happy Customers",
@@ -80,7 +80,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // CTA
     "cta.title": "Ready to Upgrade Your Tech?",
-    "cta.desc": "Join 50,000+ customers who trust TechStore for premium technology at the best prices.",
+    "cta.desc": "Join 50,000+ customers who trust LuFi Shop for quality products at the best prices.",
     "cta.shopNow": "Shop Now",
     "cta.createAccount": "Create Account",
 
@@ -148,7 +148,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Register
     "register.title": "Create Account",
-    "register.desc": "Join TechStore to start shopping",
+    "register.desc": "Join LuFi Shop to start shopping",
     "register.name": "Full Name",
     "register.email": "Email",
     "register.password": "Password",
@@ -181,7 +181,7 @@ const translations: Record<Language, Record<string, string>> = {
     "about.ourStory": "Our Story",
     "about.title1": "We Build the Future of ",
     "about.title2": "Tech Shopping",
-    "about.desc": "Founded in 2020, TechStore is on a mission to make premium technology accessible to everyone. We curate the best products from top brands and deliver them with unmatched service.",
+    "about.desc": "Founded in 2020, LuFi Shop is on a mission to make quality products accessible to everyone. We curate the best products from top brands and deliver them with unmatched service.",
     "about.happyCustomers": "Happy Customers",
     "about.topBrands": "Top Brands",
     "about.countriesServed": "Countries Served",
@@ -324,7 +324,7 @@ const translations: Record<Language, Record<string, string>> = {
     "cat.components": "የፒሲ ክፍሎች",
 
     // Why Choose Us
-    "why.subtitle": "ለምን TechStore",
+    "why.subtitle": "ለምን LuFi Shop",
     "why.title": "ለቴክ አፍቃሪዎች የተሠራ",
     "why.desc": "እኛ ከመደብር በላይ ነን — ትክክለኛውን ቴክ ለማግኘት የሚታመን አጋርዎ ነን።",
     "why.freeShipping": "ነጻ መላኪያ",
@@ -340,7 +340,7 @@ const translations: Record<Language, Record<string, string>> = {
     "brand.aboutUs": "ስለ እኛ",
     "brand.title1": "ፕሪሚየም ",
     "brand.title2": "የቴክ መድረሻ",
-    "brand.desc1": "TechStore የዓለምን ምርጥ የቴክኖሎጂ ብራንዶች በአንድ ጣሪያ ስር ያመጣል። ከኃይለኛ ላፕቶፖች እስከ ዘመናዊ ስማርትፎኖች ድረስ፣ ምርጥ ምርቶችን ብቻ እናቀርባለን።",
+    "brand.desc1": "LuFi Shop የዓለምን ምርጥ ምርቶች በአንድ ጣሪያ ስር ያመጣል። ምርጥ ምርቶችን ብቻ እናቀርባለን።",
     "brand.desc2": "ጌመር፣ ፈጠራ ባለሙያ ወይም በቀላሉ ጋጄቶችን የሚወዱ ከሆኑ፣ ለእርስዎ የሚሆን ነገር አለን። በፈጣን ማድረስ፣ ቀላል ተመላሾች እና ቁርጠኛ ድጋፍ።",
     "brand.learnMore": "ተጨማሪ ይወቁ",
     "brand.happyCustomers": "ደስተኛ ደንበኞች",
@@ -354,7 +354,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // CTA
     "cta.title": "ቴክዎን ለማሻሻል ዝግጁ ነዎት?",
-    "cta.desc": "ለፕሪሚየም ቴክኖሎጂ TechStoreን የሚያምኑ ከ50,000 በላይ ደንበኞች ይቀላቀሉ።",
+    "cta.desc": "ለፕሪሚየም ምርቶች LuFi Shopን የሚያምኑ ከ50,000 በላይ ደንበኞች ይቀላቀሉ።",
     "cta.shopNow": "አሁን ይግዙ",
     "cta.createAccount": "መለያ ይፍጠሩ",
 
@@ -422,7 +422,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Register
     "register.title": "መለያ ይፍጠሩ",
-    "register.desc": "ግዢ ለመጀመር TechStore ይቀላቀሉ",
+    "register.desc": "ግዢ ለመጀመር LuFi Shop ይቀላቀሉ",
     "register.name": "ሙሉ ስም",
     "register.email": "ኢሜይል",
     "register.password": "የይለፍ ቃል",
@@ -455,7 +455,7 @@ const translations: Record<Language, Record<string, string>> = {
     "about.ourStory": "ታሪካችን",
     "about.title1": "የወደፊቱን ",
     "about.title2": "የቴክ ግዢ እንገነባለን",
-    "about.desc": "በ2020 የተመሰረተው TechStore ፕሪሚየም ቴክኖሎጂን ለሁሉም ተደራሽ ለማድረግ ተልዕኮ ላይ ነው።",
+    "about.desc": "በ2020 የተመሰረተው LuFi Shop ምርጥ ምርቶችን ለሁሉም ተደራሽ ለማድረግ ተልዕኮ ላይ ነው።",
     "about.happyCustomers": "ደስተኛ ደንበኞች",
     "about.topBrands": "ምርጥ ብራንዶች",
     "about.countriesServed": "የሚገለገሉ ሀገሮች",
@@ -597,7 +597,7 @@ const translations: Record<Language, Record<string, string>> = {
     "cat.components": "Kutaalee PC",
 
     // Why Choose Us
-    "why.subtitle": "Maaliif TechStore",
+    "why.subtitle": "Maaliif LuFi Shop",
     "why.title": "Jaallattoota Teeknooloojiif Kan Ijaarame",
     "why.desc": "Suuqii qofa miti — teeknooloojii sirrii argachuuf michuu amanamaa keessaniti.",
     "why.freeShipping": "Ergaa Bilisaa",
@@ -613,7 +613,7 @@ const translations: Record<Language, Record<string, string>> = {
     "brand.aboutUs": "Waa'ee Keenya",
     "brand.title1": "Bakka Ga'umsaa ",
     "brand.title2": "Teeknooloojii Olaanaa",
-    "brand.desc1": "TechStore braandoota teeknooloojii addunyaa guddaa tokko jalatti walitti fida. Laaptooppii cimaa hanga bilbila ismaartii haaraatti, oomishaalee filatamoo qofa dhiyeessina.",
+    "brand.desc1": "LuFi Shop oomishaalee addunyaa filatamoo tokko jalatti walitti fida. Oomishaalee qulqullina olaanaa qofa dhiyeessina.",
     "brand.desc2": "Taphataa geemii, ogeessa kalaqaa, ykn salphaatti gaajeetii kan jaallattu yoo ta'e, wanti isiniif ta'u jira.",
     "brand.learnMore": "Dabalata Baraa",
     "brand.happyCustomers": "Maamiltoonni Gammadan",
@@ -627,7 +627,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // CTA
     "cta.title": "Teeknooloojii Keessan Fooyyessuuf Qophii Dha?",
-    "cta.desc": "Maamiltoonni 50,000 ol TechStore amanatan teeknooloojii olaanaa gatii gaariitiin argatu.",
+    "cta.desc": "Maamiltoonni 50,000 ol LuFi Shop amanatan oomishaalee olaanaa gatii gaariitiin argatu.",
     "cta.shopNow": "Amma Bitadhaa",
     "cta.createAccount": "Herrega Uumaa",
 
@@ -695,7 +695,7 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Register
     "register.title": "Herrega Uumaa",
-    "register.desc": "Bitachuu jalqabuuf TechStore makaa",
+    "register.desc": "Bitachuu jalqabuuf LuFi Shop makaa",
     "register.name": "Maqaa Guutuu",
     "register.email": "Imeelii",
     "register.password": "Jecha Darbii",
@@ -728,7 +728,7 @@ const translations: Record<Language, Record<string, string>> = {
     "about.ourStory": "Seenaa Keenya",
     "about.title1": "Fuula Duraa ",
     "about.title2": "Bitachaa Teeknooloojii Ni Ijaarra",
-    "about.desc": "Bara 2020 kan hundeeffame TechStore teeknooloojii olaanaa hundaaf dhaqqabamaa gochuuf ergama irra jira.",
+    "about.desc": "Bara 2020 kan hundeeffame LuFi Shop oomishaalee olaanaa hundaaf dhaqqabamaa gochuuf ergama irra jira.",
     "about.happyCustomers": "Maamiltoonni Gammadan",
     "about.topBrands": "Braandoota Guddaa",
     "about.countriesServed": "Biyyoota Tajaajilamoo",

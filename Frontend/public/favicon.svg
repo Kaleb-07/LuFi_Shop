@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Soft gradient background -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8f5e9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fffde7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="cartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#43a047;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2e7d32;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffc107;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f57f17;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#00000033"/>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <rect width="100" height="100" rx="20" fill="url(#bg)"/>
+
+  <!-- Speed dots (left side) -->
+  <rect x="10" y="35" width="6" height="6" rx="1.5" fill="#43a047" opacity="0.8"/>
+  <rect x="10" y="45" width="8" height="6" rx="1.5" fill="#43a047" opacity="0.6"/>
+  <rect x="10" y="55" width="5" height="5" rx="1.5" fill="#43a047" opacity="0.4"/>
+
+  <!-- Shopping cart body (with shadow) -->
+  <g filter="url(#shadow)">
+    <!-- Cart handle/bar top -->
+    <path d="M22 28 Q22 24 26 24 L78 24 Q82 24 82 28 L80 60 Q80 64 76 64 L28 64 Q24 64 22 60 Z"
+          fill="url(#cartGrad)" rx="6"/>
+
+    <!-- Golden badge inside cart -->
+    <rect x="30" y="32" width="44" height="26" rx="6" fill="url(#badgeGrad)"/>
+
+    <!-- LF text on badge -->
+    <text x="52" y="50" text-anchor="middle" dominant-baseline="middle"
+          font-family="Arial Black, sans-serif" font-weight="900" font-size="16"
+          fill="white" letter-spacing="-1">LF</text>
+
+    <!-- Cart left wheel -->
+    <circle cx="35" cy="74" r="7" fill="url(#cartGrad)"/>
+    <circle cx="35" cy="74" r="3.5" fill="#e8f5e9"/>
+
+    <!-- Cart right wheel -->
+    <circle cx="70" cy="74" r="7" fill="url(#cartGrad)"/>
+    <circle cx="70" cy="74" r="3.5" fill="#e8f5e9"/>
+  </g>
+</svg>

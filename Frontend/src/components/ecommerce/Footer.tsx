@@ -11,11 +11,14 @@ const Footer = () => {
         <div className="grid grid-cols-2 gap-12 md:grid-cols-5">
           <div className="col-span-2 space-y-8 md:col-span-2">
             <div>
-              <Link to="/" className="font-heading text-2xl font-bold tracking-tight">
-                <span className="gold-text">LuFi</span><span className="text-foreground">Zon</span>
+              <Link to="/" className="flex items-center gap-2 group">
+                <img src="/favicon.svg" alt="LuFi Shop" className="h-9 w-9 rounded-lg object-cover" onError={(e) => { e.currentTarget.style.display='none'; }} />
+                <span className="font-heading text-2xl font-black tracking-tight">
+                  <span className="gold-text">LuFi</span><span className="text-foreground"> Shop</span>
+                </span>
               </Link>
               <p className="mt-4 max-w-sm text-base text-muted-foreground leading-relaxed">
-                Experience the next generation of technology. We curate only the finest flagship devices and premium accessories for your digital lifestyle.
+                Your trusted destination for quality products at great prices. Shop smarter with LuFi Shop — fast delivery, easy returns, and premium support.
               </p>
             </div>
 
@@ -69,7 +72,7 @@ const Footer = () => {
 
         <div className="mt-20 border-t border-border/40 pt-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-sm font-medium text-muted-foreground">
-            © {new Date().getFullYear()} LuFiZon. All rights reserved.
+            © {new Date().getFullYear()} <span className="font-semibold">LuFi Shop</span>. All rights reserved.
           </div>
 
           <div className="flex items-center gap-6 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all">
