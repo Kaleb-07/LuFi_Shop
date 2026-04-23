@@ -76,7 +76,7 @@ const CategoryBar = () => {
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -20 }}
                                     transition={{ duration: 0.3 }}
-                                    className="flex items-center gap-1 w-full justify-center overflow-x-auto scrollbar-none pb-1"
+                                    className="flex items-center gap-1 w-full justify-center overflow-x-auto scrollbar-hide pb-1"
                                 >
                                     {displayedCategories.map((cat) => {
                                         const Icon = ICON_MAP[cat.icon_name || ""] || ShoppingBag;

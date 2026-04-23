@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ModernPromoBanner = () => {
     return (
-        <section className="bg-white py-12 md:py-16">
+        <section className="bg-white py-4">
             <div className="container">
                 <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-8 py-12 md:px-16 md:py-20 lg:py-24">
                     <div className="grid gap-12 lg:grid-cols-2 lg:items-center">

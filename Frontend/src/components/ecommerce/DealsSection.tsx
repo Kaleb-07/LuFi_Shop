@@ -32,7 +32,7 @@ const DealsSection = () => {
     if (isLoading) return null; // Or skeleton
 
     return (
-        <section className="bg-white py-24 overflow-hidden">
+        <section className="bg-white pt-10 pb-24 overflow-hidden">
             <div className="container px-6">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-center">
                     <div className="lg:w-1/4 w-full shrink-0 flex flex-col justify-center pb-8 lg:pb-0">
@@ -62,7 +62,7 @@ const DealsSection = () => {
 
                     <div
                         ref={scrollContainerRef}
-                        className="lg:w-3/4 w-full flex gap-8 overflow-x-auto pb-8 pt-4 scrollbar-none snap-x snap-mandatory px-2"
+                        className="lg:w-3/4 w-full flex gap-8 overflow-x-auto pb-8 pt-4 scrollbar-hide snap-x snap-mandatory px-2"
                     >
                         {products?.slice(0, 8).map((product) => (
                             <motion.div

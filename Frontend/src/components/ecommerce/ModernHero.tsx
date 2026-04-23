@@ -19,7 +19,7 @@ const ModernHero = () => {
     ];
 
     return (
-        <section className="bg-white py-20 overflow-hidden">
+        <section className="bg-white py-10 overflow-hidden">
             <div className="container">
                 <div className="flex flex-col gap-12 lg:flex-row lg:items-center">
                     {/* Left Side */}

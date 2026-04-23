@@ -5,7 +5,7 @@ import { Input } from "./ecommerce-ui/input";
 
 const Newsletter = () => {
     return (
-        <section className="bg-white py-24 pb-32">
+        <section className="bg-white py-16">
             <div className="container px-6">
                 <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-8 py-20 md:px-16 text-center">
                     <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 opacity-[0.03]">

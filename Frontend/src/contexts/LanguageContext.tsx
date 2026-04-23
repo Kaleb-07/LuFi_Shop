@@ -40,6 +40,15 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.desc": "Discover curated deals on laptops, smartphones, and accessories from the world's top brands.",
     "hero.shopNow": "Shop Now",
     "hero.learnMore": "Learn More",
+    "home.innovation": "Innovation",
+    "home.futureIs": "The Future is",
+    "home.inYourHands": "in Your Hands",
+    "hero.prod1": "Wireless Earbuds Pro",
+    "hero.prod2": "Smartwatch Gen 5",
+    "hero.prod3": "Ergonomic Mouse",
+    "hero.prod4": "Mechanical Keyboard",
+    "hero.prod5": "Tablet Ultra 12\"",
+    "hero.prod6": "Portable SSD 1TB",
 
     // Categories
     "cat.browse": "Browse",
@@ -314,6 +323,15 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.desc": "ከዓለም ዋና ብራንዶች ላፕቶፖች፣ ስማርትፎኖች እና ተጨማሪ መሣሪያዎች ላይ የተመረጡ ቅናሾችን ያግኙ።",
     "hero.shopNow": "አሁን ይግዙ",
     "hero.learnMore": "ተጨማሪ ይወቁ",
+    "home.innovation": "ፈጠራ",
+    "home.futureIs": "የወደፊቱ ጊዜ",
+    "home.inYourHands": "በእጆችዎ ውስጥ ነው",
+    "hero.prod1": "ገመድ አልባ የጆሮ ማዳመጫ Pro",
+    "hero.prod2": "ስማርት ሰዓት Gen 5",
+    "hero.prod3": "Ergonomic Mouse",
+    "hero.prod4": "ሜካኒካል ኪቦርድ",
+    "hero.prod5": "ታብሌት Ultra 12\"",
+    "hero.prod6": "ተንቀሳቃሽ SSD 1TB",
 
     // Categories
     "cat.browse": "ያስሱ",
@@ -587,6 +605,15 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.desc": "Laaptooppii, bilbila ismaartii, fi meeshaalee biroo irratti waliigaltee filatamaa argataa.",
     "hero.shopNow": "Amma Bitadhaa",
     "hero.learnMore": "Dabalata Baraa",
+    "home.innovation": "Kalaqa",
+    "home.futureIs": "Fuuldurri",
+    "home.inYourHands": "Harka Keessan Keessa Jira",
+    "hero.prod1": "Gurra Guutuu Wireless Pro",
+    "hero.prod2": "Sa'aatii Smart Gen 5",
+    "hero.prod3": "Ergonomic Mouse",
+    "hero.prod4": "Kiboordii Mechaanikaalaa",
+    "hero.prod5": "Taabileetii Ultra 12\"",
+    "hero.prod6": "Portable SSD 1TB",
 
     // Categories
     "cat.browse": "Sakatta'aa",
