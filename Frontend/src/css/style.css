@@ -246,6 +246,23 @@
   --ring: 201 61% 40%;
 }
 
+/* Hide standard Google Translate UI elements */
+#google_translate_element, 
+.skiptranslate, 
+.goog-te-banner-frame,
+#goog-gt-tt, 
+.goog-te-balloon-frame,
+.goog-te-menu-frame { 
+  display: none !important; 
+  visibility: hidden !important;
+}
+body { 
+  top: 0 !important; 
+}
+.goog-te-spinner-pos {
+  display: none !important;
+}
+
 @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;

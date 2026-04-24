@@ -40,7 +40,7 @@ class OrderController extends Controller
 
             $order = Order::create([
                 'order_number' => $orderNumber,
-                'user_id' => $request->user()?->id,
+                'user_id' => auth('sanctum')->id(),
                 'status' => 'pending',
                 'total_amount' => 0, // Will update after calculating items
                 'shipping_address' => $request->shipping_address,

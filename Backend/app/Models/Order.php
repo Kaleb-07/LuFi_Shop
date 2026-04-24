@@ -20,6 +20,10 @@ class Order extends Model
         'payment_method',
         'payment_status',
     ];
+    
+    protected $casts = [
+        'total_amount' => 'float',
+    ];
 
     public function items()
     {

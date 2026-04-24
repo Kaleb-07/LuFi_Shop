@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Navbar from "../../components/ecommerce/Navbar";
 import Footer from "../../components/ecommerce/Footer";
 import { Button } from "../../components/ecommerce/ecommerce-ui/button";
@@ -7,7 +7,7 @@ import { Input } from "../../components/ecommerce/ecommerce-ui/input";
 import { Label } from "../../components/ecommerce/ecommerce-ui/label";
 import { Card, CardContent } from "../../components/ecommerce/ecommerce-ui/card";
 import { motion } from "framer-motion";
-import { Package, Search, Truck, CheckCircle, Clock, AlertCircle } from "lucide-react";
+import { Package, Search, Truck, CheckCircle, Clock, AlertCircle, ArrowLeft } from "lucide-react";
 import { useToast } from "../../hooks/use-toast";
 import { useLanguage } from "../../contexts/LanguageContext";
 import { fetchOrderDetails, Order } from "../../lib/api";
@@ -78,12 +78,18 @@ const TrackOrderPage = () => {
       <main>
         <section className="relative py-20 md:py-28">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent" />
-          <div className="container relative text-center">
+          <div className="container relative">
+            <Link to="/orders" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-6 group">
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              {t("nav.myOrders")}
+            </Link>
+            <div className="text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{t("track.subtitle")}</p>
               <h1 className="text-4xl font-bold md:text-5xl">{t("track.title1")}<span className="gold-text">{t("track.title2")}</span></h1>
               <p className="mx-auto mt-4 max-w-lg text-muted-foreground">{t("track.desc")}</p>
             </motion.div>
+            </div>
           </div>
         </section>
 

@@ -136,7 +136,7 @@ const AdminCustomers = () => {
                 <div>
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Avg. Customer Value</p>
                     <p className="text-xl font-black text-slate-900">
-                        ETB {customers.length > 0 ? (customers.reduce((acc, c) => acc + c.total_spent, 0) / customers.length).toFixed(0) : 0}
+                        ETB {customers.length > 0 ? (customers.reduce((acc, c) => acc + Number(c.total_spent), 0) / customers.length).toFixed(0) : 0}
                     </p>
                 </div>
             </div>

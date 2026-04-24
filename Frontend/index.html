@@ -25,13 +25,22 @@
     class="font-inter antialiased bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400"
   >
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script>
-      if (localStorage.getItem("sidebar-expanded") == "true") {
-        document.querySelector("body").classList.add("sidebar-expanded");
-      } else {
-        document.querySelector("body").classList.remove("sidebar-expanded");
+    <!-- Hidden element where Google Translate will mount -->
+    <div id="google_translate_element" style="display: none; visibility: hidden"></div>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,am,om,ti,so,hi,ar,zh-CN,de,fr,es,it",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
       }
     </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

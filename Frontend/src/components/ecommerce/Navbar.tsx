@@ -9,7 +9,7 @@ import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { Input } from "../../components/ecommerce/ecommerce-ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ecommerce/ecommerce-ui/avatar";
 import ThemeToggle from "../../components/ecommerce/ThemeToggle";
-import LanguageSwitcher from "../../components/LanguageSwitcher";
+import GoogleTranslate from "./GoogleTranslate";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -155,7 +155,7 @@ const Navbar = () => {
         {/* Right Side: Actions */}
         <div className="flex items-center gap-2">
           <div className="hidden sm:block">
-            <LanguageSwitcher isTransparent={!isSolid} />
+            <GoogleTranslate transparent={!isSolid} />
           </div>
 
           {user ? (
@@ -243,6 +243,9 @@ const Navbar = () => {
             />
           </form>
           <nav className="flex flex-col gap-1">
+            <div className="px-3 py-2">
+              <GoogleTranslate align="left" />
+            </div>
             {navLinks.map((link) => (
               <Link
                 key={link.href}

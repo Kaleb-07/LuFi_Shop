@@ -149,7 +149,7 @@ const MyOrdersPage = () => {
                                     <span className="mr-1.5">{getStatusIcon(order.status)}</span>
                                     {order.status}
                                 </Badge>
-                                <p className="text-lg font-black text-foreground">ETB {order.total_amount.toFixed(2)}</p>
+                                <p className="text-lg font-black text-foreground">ETB {Number(order.total_amount).toFixed(2)}</p>
                             </div>
 
                             <div className="flex items-center border-t border-border pt-4 sm:border-0 sm:pt-0">
