@@ -28,6 +28,7 @@ import AdminOrders from "./pages/admin/AdminOrders";
 import AdminCustomers from "./pages/admin/AdminCustomers";
 import AdminStaff from "./pages/admin/AdminStaff";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminReports from "./pages/admin/AdminReports";
 
 function App() {
   const location = useLocation();
@@ -75,6 +76,7 @@ function App() {
         <Route path="/admin/customers" element={<AdminCustomers />} />
         <Route path="/admin/staff" element={<AdminStaff />} />
         <Route path="/admin/settings" element={<AdminSettings />} />
+        <Route path="/admin/reports" element={<AdminReports />} />
 
         {/* Fallback route */}
         <Route path="*" element={<Navigate to="/" />} />

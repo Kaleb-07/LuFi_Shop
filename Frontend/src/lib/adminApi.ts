@@ -15,6 +15,7 @@ export interface DashboardStats {
 export const adminApi = {
   // Stats
   getStats: () => apiFetch<DashboardStats>("/admin/stats"),
+  getReports: (period: string = "month") => apiFetch<any>(`/admin/reports?period=${period}`),
 
   // Products
   getProducts: () => apiFetch<Product[]>("/admin/products"),

@@ -17,7 +17,8 @@ import {
   ShieldCheck,
   PackageCheck,
   AlertTriangle,
-  UserPlus
+  UserPlus,
+  BarChart3
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { adminApi } from "../../lib/adminApi";
@@ -77,6 +78,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   const menuItems = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/admin" },
+    { name: "Reports", icon: BarChart3, path: "/admin/reports" },
     { name: "Orders", icon: ShoppingBag, path: "/admin/orders" },
     { name: "Products", icon: Package, path: "/admin/products" },
     { name: "Customers", icon: Users, path: "/admin/customers" },

@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Admin Routes (Requires Admin Role)
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/stats', [DashboardController::class, 'stats']);
+        Route::get('/reports', [DashboardController::class, 'reports']);
         
         Route::get('/products', [ProductController::class, 'index']);
         Route::post('/products', [ProductController::class, 'store']);
