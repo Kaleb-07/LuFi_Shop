@@ -75,4 +75,16 @@ export const adminApi = {
       body: JSON.stringify(data),
     }),
   getNotifications: () => apiFetch<any[]>("/admin/notifications"),
+
+  // Reviews
+  getReviews: () => apiFetch<any>("/admin/reviews"),
+  updateReviewStatus: (id: number, status: string) => 
+    apiFetch<any>(`/admin/reviews/${id}/status`, {
+      method: "PUT",
+      body: JSON.stringify({ status }),
+    }),
+  deleteReview: (id: number) => 
+    apiFetch<any>(`/admin/reviews/${id}`, {
+      method: "DELETE",
+    }),
 };

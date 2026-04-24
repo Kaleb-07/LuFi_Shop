@@ -18,7 +18,8 @@ import {
   PackageCheck,
   AlertTriangle,
   UserPlus,
-  BarChart3
+  BarChart3,
+  MessageSquare
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { adminApi } from "../../lib/adminApi";
@@ -46,7 +47,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
 
   useEffect(() => {
     loadNotifications();
-    const interval = setInterval(loadNotifications, 60000); // Refresh every minute
+    const interval = setInterval(loadNotifications, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -82,6 +83,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { name: "Orders", icon: ShoppingBag, path: "/admin/orders" },
     { name: "Products", icon: Package, path: "/admin/products" },
     { name: "Customers", icon: Users, path: "/admin/customers" },
+    { name: "Reviews", icon: MessageSquare, path: "/admin/reviews" },
     { name: "Staff", icon: ShieldCheck, path: "/admin/staff" },
     { name: "Settings", icon: Settings, path: "/admin/settings" },
   ];

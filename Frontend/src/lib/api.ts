@@ -169,3 +169,16 @@ export async function fetchUserOrders(): Promise<Order[]> {
   return data || [];
 }
 
+/** Fetches reviews for a specific product */
+export async function fetchProductReviews(productId: number): Promise<any[]> {
+  return await apiFetch<any[]>(`/products/${productId}/reviews`);
+}
+
+/** Submits a new product review */
+export async function submitReview(reviewData: { product_id: number; rating: number; comment?: string }): Promise<any> {
+  return await apiFetch<any>("/reviews", {
+    method: "POST",
+    body: JSON.stringify(reviewData),
+  });
+}
+

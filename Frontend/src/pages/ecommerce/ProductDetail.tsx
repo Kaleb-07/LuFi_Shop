@@ -3,7 +3,7 @@ import {
   ArrowLeft, ArrowRight, ShoppingBag, Heart, Truck, RotateCcw,
   Star, ChevronDown, ChevronLeft, ChevronRight, AlertCircle, Plus
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../../components/ecommerce/Navbar";
 import Footer from "../../components/ecommerce/Footer";
@@ -11,13 +11,8 @@ import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { useCart } from "../../contexts/CartContext";
 import { useProduct, useProducts } from "../../hooks/useProducts";
 import { useToast } from "../../hooks/use-toast";
-
-// ─── Mock reviews (static, since there's no reviews API yet) ─────────────────
-const MOCK_REVIEWS = [
-  { id: 1, name: "Samuel T.", rating: 5, comment: "Absolutely amazing product! Build quality is top‑notch and shipping was super fast.", date: "Mar 5, 2026" },
-  { id: 2, name: "Meron A.", rating: 4, comment: "Great value for money. Fits perfectly and feels premium. Would definitely buy again.", date: "Feb 28, 2026" },
-  { id: 3, name: "Yonas K.", rating: 5, comment: "Exceeded my expectations. The color is exactly as shown in the photos.", date: "Feb 20, 2026" },
-];
+import { fetchProductReviews, submitReview } from "../../lib/api";
+import { useAuth } from "../../contexts/AuthContext";
 
 // ─── Star Row helper ──────────────────────────────────────────────────────────
 const StarRow = ({ rating, size = 4 }: { rating: number; size?: number }) => (
@@ -106,7 +101,59 @@ const ProductDetail = () => {
   const [wishlist, setWishlist] = useState(false);
   const [qty, setQty] = useState(1);
   const [showReviewForm, setShowReviewForm] = useState(false);
-  const [newReview, setNewReview] = useState({ name: "", rating: 5, comment: "" });
+  const [newReview, setNewReview] = useState({ rating: 5, comment: "" });
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const [showAllReviews, setShowAllReviews] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (id) {
+      loadReviews();
+    }
+  }, [id]);
+
+  const loadReviews = async () => {
+    setLoadingReviews(true);
+    try {
+      const data = await fetchProductReviews(Number(id));
+      setReviews(data);
+    } catch (err) {
+      console.error("Failed to load reviews", err);
+    } finally {
+      setLoadingReviews(false);
+    }
+  };
+
+  const handleReviewSubmit = async () => {
+    if (!user) {
+      toast({ title: "Please login", description: "You must be logged in to leave a review.", variant: "destructive" });
+      return;
+    }
+
+    if (!newReview.comment?.trim()) {
+       toast({ title: "Comment required", description: "Please share your thoughts in the comment section.", variant: "destructive" });
+       return;
+    }
+
+    setSubmittingReview(true);
+    try {
+      await submitReview({
+        product_id: Number(id),
+        rating: newReview.rating,
+        comment: newReview.comment
+      });
+      toast({ title: "Review submitted!", description: "Thanks for your feedback." });
+      setShowReviewForm(false);
+      setNewReview({ rating: 5, comment: "" });
+      loadReviews(); // Refresh list
+    } catch (err) {
+      toast({ title: "Error", description: "Failed to submit review. Try again.", variant: "destructive" });
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
 
   // ── Loading ──
   if (isLoading) {
@@ -149,9 +196,9 @@ const ProductDetail = () => {
 
   const similarProducts = (allProducts?.filter((p) => p.id !== displayProduct.id && p.category_name === displayProduct.category_name).slice(0, 8) ?? []);
 
-  const avgRating = Math.round(
-    MOCK_REVIEWS.reduce((s, r) => s + r.rating, 0) / MOCK_REVIEWS.length
-  );
+  const avgRating = reviews.length > 0 
+    ? Math.round(reviews.reduce((s, r) => s + r.rating, 0) / reviews.length)
+    : 5; // Default if no reviews
 
   const handleAddToCart = () => {
     for (let i = 0; i < qty; i++) addToCart(displayProduct as any);
@@ -302,7 +349,7 @@ const ProductDetail = () => {
             {/* Rating */}
             <div className="flex items-center gap-3">
               <StarRow rating={avgRating} />
-              <span className="text-sm text-gray-500">({MOCK_REVIEWS.length} reviews)</span>
+              <span className="text-sm text-gray-500">({reviews.length} reviews)</span>
             </div>
 
             {/* Price */}
@@ -412,7 +459,7 @@ const ProductDetail = () => {
                 <span className="text-4xl font-bold text-gray-900">{avgRating}.0</span>
                 <div>
                   <StarRow rating={avgRating} size={5} />
-                  <p className="text-sm text-gray-500 mt-1">Based on {MOCK_REVIEWS.length} reviews</p>
+                  <p className="text-sm text-gray-500 mt-1">Based on {reviews.length} reviews</p>
                 </div>
               </div>
             </div>
@@ -439,19 +486,14 @@ const ProductDetail = () => {
                   <h3 className="font-semibold text-gray-800">Share your experience</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-gray-600 font-medium">Your Name</label>
-                      <input
-                        value={newReview.name}
-                        onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                        placeholder="e.g. Samuel T."
-                        className="mt-1 w-full rounded-xl border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm text-gray-600 font-medium">Rating</label>
+                       <label className="text-sm text-gray-600 font-medium">Rating</label>
                       <div className="flex items-center gap-1 mt-2">
                         {[1, 2, 3, 4, 5].map((s) => (
-                          <button key={s} onClick={() => setNewReview({ ...newReview, rating: s })}>
+                          <button 
+                            key={s} 
+                            type="button"
+                            onClick={() => setNewReview({ ...newReview, rating: s })}
+                          >
                             <Star className={`h-6 w-6 transition-colors ${s <= newReview.rating ? "fill-primary text-primary" : "text-gray-200"}`} />
                           </button>
                         ))}
@@ -470,14 +512,11 @@ const ProductDetail = () => {
                   </div>
                   <div className="flex gap-3">
                     <Button
-                      onClick={() => {
-                        toast({ title: "Review submitted!", description: "Thanks for your feedback." });
-                        setShowReviewForm(false);
-                        setNewReview({ name: "", rating: 5, comment: "" });
-                      }}
+                      onClick={handleReviewSubmit}
+                      disabled={submittingReview}
                       className="gold-gradient text-white font-semibold rounded-xl"
                     >
-                      Submit Review
+                      {submittingReview ? "Submitting..." : "Submit Review"}
                     </Button>
                     <Button variant="outline" onClick={() => setShowReviewForm(false)} className="rounded-xl">
                       Cancel
@@ -490,7 +529,7 @@ const ProductDetail = () => {
 
           {/* Review Cards */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {MOCK_REVIEWS.map((review) => (
+            {(showAllReviews ? reviews : reviews.slice(0, 3)).map((review) => (
               <motion.div
                 key={review.id}
                 initial={{ opacity: 0, y: 16 }}
@@ -502,11 +541,11 @@ const ProductDetail = () => {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
-                      {review.name.charAt(0)}
+                      {review.user?.name.charAt(0) || "U"}
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-800 text-sm">{review.name}</p>
-                      <p className="text-xs text-gray-400">{review.date}</p>
+                      <p className="font-semibold text-gray-800 text-sm">{review.user?.name || "Verified User"}</p>
+                      <p className="text-xs text-gray-400">{new Date(review.created_at).toLocaleDateString()}</p>
                     </div>
                   </div>
                   <StarRow rating={review.rating} size={3} />
@@ -514,7 +553,24 @@ const ProductDetail = () => {
                 <p className="text-sm text-gray-600 leading-relaxed">{review.comment}</p>
               </motion.div>
             ))}
+            {!loadingReviews && reviews.length === 0 && (
+              <div className="col-span-full py-10 text-center bg-gray-50 rounded-3xl border border-dashed border-gray-200">
+                 <p className="text-gray-400 font-medium">No reviews yet. Be the first to share your thoughts!</p>
+              </div>
+            )}
           </div>
+
+          {reviews.length > 3 && (
+            <div className="flex justify-center mt-8">
+              <Button
+                variant="outline"
+                onClick={() => setShowAllReviews(!showAllReviews)}
+                className="rounded-2xl px-8 py-2 border-2 border-gray-100 text-gray-500 font-bold hover:border-primary hover:text-primary transition-all"
+              >
+                {showAllReviews ? "Show Less" : `View All ${reviews.length} Reviews`}
+              </Button>
+            </div>
+          )}
         </section>
 
         {/* ══════════════════════════════════════════════════════

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             MockDataSeeder::class,
             AdminUserSeeder::class,
+            ReviewSeeder::class,
         ]);
 
         User::updateOrCreate(

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\SettingController as AdminSettingController;
 use App\Http\Controllers\Admin\NotificationController as AdminNotificationController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,17 +34,24 @@ Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/orders', [OrderController::class, 'index']);
 Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/orders/{order_number}', [OrderController::class, 'show']);
+Route::get('/track-order/{orderNumber}', [OrderController::class, 'trackOrder']);
+Route::get('/products/{id}/reviews', [ReviewController::class, 'index']);
 
 // Protected Routes (Requires Login)
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user/orders', [OrderController::class, 'userOrders']);
+    Route::post('/reviews', [ReviewController::class, 'store']);
     
     // Admin Routes (Requires Admin Role)
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/stats', [DashboardController::class, 'stats']);
         Route::get('/reports', [DashboardController::class, 'reports']);
+        
+        Route::get('/reviews', [ReviewController::class, 'adminIndex']);
+        Route::put('/reviews/{id}/status', [ReviewController::class, 'updateStatus']);
+        Route::delete('/reviews/{id}', [ReviewController::class, 'destroy']);
         
         Route::get('/products', [ProductController::class, 'index']);
         Route::post('/products', [ProductController::class, 'store']);
