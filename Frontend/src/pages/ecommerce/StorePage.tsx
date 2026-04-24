@@ -28,7 +28,8 @@ import {
   Footprints
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { fetchEcommerceProducts, fetchCategories, fetchBrands, Product, Category, Brand } from "../../lib/api";
+import { useQueryClient } from "@tanstack/react-query";
+import { fetchEcommerceProducts, fetchCategories, fetchBrands, fetchProductById, Product, Category, Brand } from "../../lib/api";
 import { useCart } from "../../contexts/CartContext";
 import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { Card, CardContent } from "../../components/ecommerce/ecommerce-ui/card";
@@ -55,7 +56,15 @@ const StorePage = () => {
   const location = useLocation();
   const { t } = useLanguage();
   const { addToCart } = useCart();
+  const queryClient = useQueryClient();
   
+  const prefetchProduct = (id: number) => {
+    queryClient.prefetchQuery({
+      queryKey: ["ecommerce-product", id],
+      queryFn: () => fetchProductById(id),
+    });
+  };
+
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [brands, setBrands] = useState<Brand[]>([]);
@@ -564,9 +573,28 @@ const StorePage = () => {
             </div>
 
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              <div className={`grid grid-cols-1 sm:grid-cols-2 ${isSidebarExpanded ? "xl:grid-cols-3" : "xl:grid-cols-4"} gap-8`}>
                 {[...Array(8)].map((_, i) => (
-                  <div key={i} className="h-[400px] rounded-3xl bg-white/50 animate-pulse border border-neutral-100" />
+                  <div key={i} className="group relative overflow-hidden bg-white rounded-3xl border border-neutral-100 shadow-sm h-[400px]">
+                    {/* Image Shimmer */}
+                    <div className="aspect-square bg-neutral-100 animate-pulse relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
+                    </div>
+                    {/* Content Shimmer */}
+                    <div className="p-6 space-y-4">
+                      <div className="space-y-2">
+                        <div className="h-3 w-20 bg-neutral-100 rounded-full animate-pulse" />
+                        <div className="h-5 w-full bg-neutral-100 rounded-lg animate-pulse" />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="h-4 w-24 bg-neutral-100 rounded-full animate-pulse" />
+                      </div>
+                      <div className="flex items-center justify-between pt-2">
+                        <div className="h-8 w-24 bg-neutral-100 rounded-xl animate-pulse" />
+                        <div className="h-10 w-10 bg-neutral-100 rounded-xl animate-pulse" />
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             ) : error ? (
@@ -586,7 +614,11 @@ const StorePage = () => {
                       exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.4, delay: idx * 0.05 }}
                     >
-                    <Link to={`/product/${product.id}`}>
+                    <Link 
+                      to={`/product/${product.id}`}
+                      state={{ initialProduct: product }}
+                      onMouseEnter={() => prefetchProduct(product.id)}
+                    >
                       <Card className="group relative h-full overflow-hidden border-none bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] rounded-3xl">
                         <div className="relative aspect-square overflow-hidden bg-neutral-100">
                           <img

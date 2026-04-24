@@ -3,6 +3,8 @@ import { ShoppingCart, Star, Check } from "lucide-react";
 import { Product } from "../../lib/api";
 import { useCart } from "../../contexts/CartContext";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { useQueryClient } from "@tanstack/react-query";
+import { fetchProductById } from "../../lib/api";
 import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { Card, CardContent } from "../../components/ecommerce/ecommerce-ui/card";
 import { motion } from "framer-motion";
@@ -15,7 +17,15 @@ interface ProductCardProps {
 const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
   const { addToCart, items } = useCart();
   const { t } = useLanguage();
+  const queryClient = useQueryClient();
   const isInCart = items.some((item) => item.product.id === product.id);
+
+  const handlePrefetch = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["ecommerce-product", product.id],
+      queryFn: () => fetchProductById(product.id),
+    });
+  };
 
   return (
     <motion.div
@@ -26,7 +36,12 @@ const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
       className="group"
     >
       <Card className="h-full overflow-hidden border-border/30 bg-white transition-all duration-300 hover:border-primary/40 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2rem]">
-        <Link to={`/product/${product.id}`} className="block">
+        <Link 
+          to={`/product/${product.id}`} 
+          state={{ initialProduct: product }}
+          className="block"
+          onMouseEnter={handlePrefetch}
+        >
           <div className="relative aspect-square overflow-hidden bg-secondary/20">
             <img
               src={product.images?.[0] || "/images/default.jpg"}

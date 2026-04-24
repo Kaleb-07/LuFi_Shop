@@ -8,6 +8,8 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { Input } from "../../components/ecommerce/ecommerce-ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ecommerce/ecommerce-ui/avatar";
+import { useQueryClient } from "@tanstack/react-query";
+import { fetchEcommerceProducts } from "../../lib/api";
 import ThemeToggle from "../../components/ecommerce/ThemeToggle";
 import GoogleTranslate from "./GoogleTranslate";
 import {
@@ -83,6 +85,15 @@ const Navbar = () => {
   // Only use transparency on the Home page at the top. Everything else is solid.
   const isSolid = scrolled || !isHomePage;
 
+  const queryClient = useQueryClient();
+
+  const prefetchStore = () => {
+    queryClient.prefetchQuery({
+      queryKey: ["ecommerce-products"],
+      queryFn: fetchEcommerceProducts,
+    });
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -123,6 +134,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 to={link.href}
+                onMouseEnter={link.href === "/store" ? prefetchStore : undefined}
                 className={`text-sm font-semibold transition-colors hover:text-primary ${
                   isSolid ? "text-muted-foreground" : "text-white/90 hover:text-white"
                 }`}

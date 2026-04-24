@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, ShoppingBag, Heart, Truck, RotateCcw,
   Star, ChevronDown, ChevronLeft, ChevronRight, AlertCircle, Plus
@@ -92,7 +92,12 @@ const SimilarCard = ({ product }: { product: any }) => {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const ProductDetail = () => {
   const { id } = useParams();
-  const { data: product, isLoading, isError } = useProduct(id ? Number(id) : undefined);
+  const location = useLocation();
+  const initialProduct = location.state?.initialProduct;
+
+  const { data: product, isLoading, isError } = useProduct(id ? Number(id) : undefined, {
+    placeholderData: initialProduct
+  });
   const { data: allProducts } = useProducts();
   const { addToCart } = useCart();
   const { toast } = useToast();
@@ -157,7 +162,7 @@ const ProductDetail = () => {
   };
 
   // ── Loading ──
-  if (isLoading) {
+  if (isLoading && !product) {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />

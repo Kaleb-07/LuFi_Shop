@@ -246,6 +246,11 @@
   --ring: 201 61% 40%;
 }
 
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 /* Hide standard Google Translate UI elements */
 #google_translate_element, 
 .skiptranslate, 

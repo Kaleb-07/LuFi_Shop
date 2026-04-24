@@ -6,7 +6,7 @@
   "avg_order_value": "Gatii Giddu-galeessaa",
   "total_vat": "VAT Waligalaa",
   "nav": {
-    "store": "Koorsii",
+    "store": "Dukaana",
     "about": "Waa'ee Keenya",
     "contact": "Nu Quunnamaa",
     "searchProducts": "Oomishaalee barbaadi...",
@@ -20,5 +20,31 @@
     "shop": "Bitu",
     "support": "Gargaarsa",
     "contactUs": "Nu Quunnamaa"
+  },
+  "store": {
+    "title": "Dukaana",
+    "inStockOnly": "Kan kumni qofa",
+    "minRating": "Sadarkaa xiqqaa",
+    "priceRange": "Gatii gidduu",
+    "itemsFound": "Oomishaaleen argamaniiru",
+    "sortBy": "Akkaataa",
+    "noProducts": "Oomishni hin argamne",
+    "noProductsDesc": "Oomisha kantiin wal simu hin arganne. Maaloo irra deebii yaali.",
+    "clearFilters": "Hunda haqi",
+    "loadMore": "Oomishaalee dabalataa",
+    "resultsFor": "Bu'aa",
+    "exploreCollection": "Oomishaalee filatamoo keenya ilaali.",
+    "allCategories": "Ramaddii hunda",
+    "type": "Gosa oomishaa",
+    "brand": "Akkaataa",
+    "clear": "Haqi",
+    "benefit1Title": "Geejjiba Bilisaa",
+    "benefit1Sub": "Ajaja ETB 5000 oliif",
+    "benefit2Title": "Kaffaltii Amansiisaa",
+    "benefit2Sub": "100% kaffaltii amansiisaa",
+    "benefit3Title": "Deeggarsa 24/7",
+    "benefit3Sub": "Yeroo hunda deeggarsa ogeessaa",
+    "benefit4Title": "Deebii Salphaa",
+    "benefit4Sub": "Guyyaa 30 keessatti deebisuu"
   }
 }

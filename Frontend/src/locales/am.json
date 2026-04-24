@@ -20,5 +20,31 @@
     "shop": "ይግዙ",
     "support": "እርዳታ",
     "contactUs": "ያግኙን"
+  },
+  "store": {
+    "title": "መደብር",
+    "inStockOnly": "ክምችት ላይ ያለ ብቻ",
+    "minRating": "ዝቅተኛ ደረጃ",
+    "priceRange": "የዋጋ ክልል",
+    "itemsFound": "ምርቶች ተገኝተዋል",
+    "sortBy": "ደርድር",
+    "noProducts": "ምንም ምርት አልተገኘም",
+    "noProductsDesc": "ከእርስዎ ፍላጎት ጋር የሚስማማ ምርት ማግኘት አልቻልንም።",
+    "clearFilters": "ሁሉንም አጽዳ",
+    "loadMore": "ተጨማሪ ምርቶችን አሳይ",
+    "resultsFor": "ውጤቶች ለ",
+    "exploreCollection": "በጥንቃቄ የተመረጡ ፕሪሚየም ምርቶቻችንን ያስሱ።",
+    "allCategories": "ሁሉም ምድቦች",
+    "type": "የምርት ዓይነት",
+    "brand": "ብራንድ",
+    "clear": "አጽዳ",
+    "benefit1Title": "ነጻ ማጓጓዣ",
+    "benefit1Sub": "ከ ETB 5,000 በላይ ለሁሉም ትዕዛዞች",
+    "benefit2Title": "ደህንነቱ የተጠበቀ ክፍያ",
+    "benefit2Sub": "Chapa እና ባንክ ዝውውር",
+    "benefit3Title": "የ24/7 ድጋፍ",
+    "benefit3Sub": "WhatsApp እና ኢሜይል ድጋፍ",
+    "benefit4Title": "ቀላል ተመላሽ",
+    "benefit4Sub": "ከችግር ነጻ 30 ቀን ተመላሽ"
   }
 }

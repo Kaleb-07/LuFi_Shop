@@ -17,12 +17,13 @@ export function useProducts() {
 /**
  * Fetches a single product by id.
  */
-export function useProduct(id: number | undefined) {
+export function useProduct(id: number | undefined, options: any = {}) {
     return useQuery<Product | null, Error>({
         queryKey: ["ecommerce-product", id],
         queryFn: () => fetchProductById(id!),
         enabled: id !== undefined,
         staleTime: 5 * 60 * 1000,
         retry: 2,
+        ...options,
     });
 }
