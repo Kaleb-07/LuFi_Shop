@@ -14,6 +14,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import { useProducts } from "../../hooks/useProducts";
 import { motion, AnimatePresence } from "framer-motion";
 import { mockProducts } from "../../lib/mock-data";
+import SEO from "../../components/ecommerce/SEO";
 
 const Home = () => {
   const [searchParams] = useSearchParams();
@@ -36,6 +37,10 @@ const Home = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F9FAFB] selection:bg-primary/20 overflow-x-hidden">
+      <SEO 
+        title="Home"
+        description="Welcome to LuFi Shop, your premium destination for the latest electronics, fashion, and more."
+      />
       <Navbar />
 
       <main className="flex-1">

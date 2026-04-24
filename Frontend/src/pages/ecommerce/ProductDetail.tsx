@@ -11,7 +11,8 @@ import { Button } from "../../components/ecommerce/ecommerce-ui/button";
 import { useCart } from "../../contexts/CartContext";
 import { useProduct, useProducts } from "../../hooks/useProducts";
 import { useToast } from "../../hooks/use-toast";
-import { fetchProductReviews, submitReview } from "../../lib/api";
+import { fetchProductReviews, submitReview, fetchRelatedProducts } from "../../lib/api";
+import SEO from "../../components/ecommerce/SEO";
 import { useAuth } from "../../contexts/AuthContext";
 
 // ─── Star Row helper ──────────────────────────────────────────────────────────
@@ -211,6 +212,13 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title={product.item_name}
+        description={product.description}
+        image={product.images?.[0]}
+        url={`/product/${product.id}`}
+        type="product"
+      />
       <Navbar />
 
       <main className="container py-8 space-y-12">

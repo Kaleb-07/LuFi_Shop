@@ -52,5 +52,23 @@
     "shop": "Shop",
     "support": "Support",
     "contactUs": "Contact Us"
+  },
+  "store": {
+    "title": "Shop",
+    "inStockOnly": "In-Stock Only",
+    "minRating": "Minimum Rating",
+    "priceRange": "Price Range",
+    "itemsFound": "Items Found",
+    "sortBy": "Sort By",
+    "noProducts": "No Products Found",
+    "noProductsDesc": "We couldn't find any products matching your filters. Try clearing some filters.",
+    "clearFilters": "Clear All Filters",
+    "loadMore": "Load More Products",
+    "resultsFor": "Results for",
+    "exploreCollection": "Explore our premium collection of handpicked items.",
+    "allCategories": "All Categories",
+    "type": "Product Type",
+    "brand": "Brand",
+    "clear": "Clear"
   }
 }

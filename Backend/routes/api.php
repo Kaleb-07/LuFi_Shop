@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SettingController as AdminSettingController;
 use App\Http\Controllers\Admin\NotificationController as AdminNotificationController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ChapaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,10 @@ Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/orders/{order_number}', [OrderController::class, 'show']);
 Route::get('/track-order/{orderNumber}', [OrderController::class, 'trackOrder']);
 Route::get('/products/{id}/reviews', [ReviewController::class, 'index']);
+
+// Payment Routes
+Route::post('/payments/initialize', [ChapaController::class, 'initialize']);
+Route::get('/payments/verify/{tx_ref}', [ChapaController::class, 'verify']);
 
 // Protected Routes (Requires Login)
 Route::middleware('auth:sanctum')->group(function () {

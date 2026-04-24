@@ -76,7 +76,7 @@ const TrackOrderPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        <section className="relative py-20 md:py-28">
+        <section className="relative py-10 md:py-20">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent" />
           <div className="container relative">
             <Link to="/orders" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors mb-6 group">
@@ -84,11 +84,11 @@ const TrackOrderPage = () => {
               {t("nav.myOrders")}
             </Link>
             <div className="text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{t("track.subtitle")}</p>
-              <h1 className="text-4xl font-bold md:text-5xl">{t("track.title1")}<span className="gold-text">{t("track.title2")}</span></h1>
-              <p className="mx-auto mt-4 max-w-lg text-muted-foreground">{t("track.desc")}</p>
-            </motion.div>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">{t("track.subtitle")}</p>
+                <h1 className="text-4xl font-bold md:text-5xl">{t("track.title1")}<span className="gold-text">{t("track.title2")}</span></h1>
+                <p className="mx-auto mt-4 max-w-lg text-muted-foreground">{t("track.desc")}</p>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -168,8 +168,8 @@ const TrackOrderPage = () => {
                               <img src={item.product?.images?.[0] || "/images/default.jpg"} alt={item.product?.item_name} className="h-full w-full object-cover" />
                             </div>
                             <div>
-                                <p className="text-sm font-medium">{item.product?.item_name}</p>
-                                <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                              <p className="text-sm font-medium">{item.product?.item_name}</p>
+                              <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                             </div>
                           </div>
                           <p className="text-sm font-bold">ETB {item.price}</p>

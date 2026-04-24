@@ -70,6 +70,8 @@ const StorePage = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(window.innerWidth >= 1024);
   const [visibleItems, setVisibleItems] = useState(12);
+  const [inStockOnly, setInStockOnly] = useState(false);
+  const [minRating, setMinRating] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -85,7 +87,6 @@ const StorePage = () => {
         setBrands(brandsData);
         setError(null);
       } catch (err) {
-        console.error("Failed to fetch store data:", err);
         setError("Failed to load products. Please check your connection.");
       } finally {
         setLoading(false);
@@ -157,7 +158,17 @@ const StorePage = () => {
     // --- 3. Price Range ---
     prods = prods.filter(p => p.price >= priceRange[0] && p.price <= priceRange[1]);
 
-    // --- 4. Drill-down Filters ---
+    // --- 4. Stock Availability ---
+    if (inStockOnly) {
+      prods = prods.filter(p => p.stock_quantity > 0);
+    }
+
+    // --- 5. Rating Filter (Using mock rating) ---
+    if (minRating > 0) {
+      prods = prods.filter(p => ((p.id % 5) + 1) >= minRating);
+    }
+
+    // --- 6. Drill-down Filters ---
     if (selectedTypes.length > 0) {
       prods = prods.filter((p) => p.part_number && selectedTypes.includes(p.part_number));
     }
@@ -166,7 +177,7 @@ const StorePage = () => {
       prods = prods.filter((p) => p.brand_name && selectedBrands.includes(p.brand_name));
     }
 
-    // --- 5. Advanced Sorting ---
+    // --- 7. Advanced Sorting ---
     if (sortBy === "Price: Low to High") {
       prods.sort((a, b) => a.price - b.price);
     } else if (sortBy === "Price: High to Low") {
@@ -178,7 +189,7 @@ const StorePage = () => {
     }
 
     return prods;
-  }, [products, selectedCategory, selectedTypes, selectedBrands, sortBy, searchQuery, priceRange]);
+  }, [products, selectedCategory, selectedTypes, selectedBrands, sortBy, searchQuery, priceRange, inStockOnly, minRating]);
 
   const toggleType = (type: string) => {
     setSelectedTypes((prev) =>
@@ -289,6 +300,53 @@ const StorePage = () => {
                         );
                       })}
                     </div>
+
+                    {/* Availability */}
+                    {isSidebarExpanded && (
+                      <div className="pt-6 mt-6 border-t border-white/10 mx-5 relative z-10">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8cbab3]">
+                            {t("store.inStockOnly")}
+                          </h4>
+                          <button 
+                            onClick={() => setInStockOnly(!inStockOnly)}
+                            className={`w-11 h-6 rounded-full transition-all relative ${inStockOnly ? "gold-gradient" : "bg-white/10"}`}
+                          >
+                            <div className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-all ${inStockOnly ? "left-6" : "left-1"}`} />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Rating Filter */}
+                    {isSidebarExpanded && (
+                      <div className="pt-6 mt-6 border-t border-white/10 mx-5 relative z-10">
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#8cbab3] mb-4">
+                          {t("store.minRating")}
+                        </h4>
+                        <div className="flex flex-col gap-2.5">
+                          {[4, 3, 2, 1].map((rating) => (
+                            <button
+                              key={rating}
+                              onClick={() => setMinRating(minRating === rating ? 0 : rating)}
+                              className={`flex items-center gap-3 text-xs transition-all duration-300 group/rating ${minRating === rating ? "translate-x-1" : "hover:translate-x-1"}`}
+                            >
+                              <div className="flex gap-1">
+                                {[...Array(5)].map((_, i) => (
+                                  <Star key={i} className={`h-3.5 w-3.5 transition-all ${i < rating 
+                                    ? (minRating === rating ? "fill-amber-400 text-amber-400 scale-110" : "fill-amber-400/40 text-amber-400/40 group-hover/rating:fill-amber-400/80 group-hover/rating:text-amber-400/80") 
+                                    : "text-white/10"}`} 
+                                  />
+                                ))}
+                              </div>
+                              <span className={`font-bold tracking-tight ${minRating === rating ? "text-amber-400" : "text-[#8cbab3] group-hover/rating:text-white"}`}>
+                                & Up
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Price Range in Sidebar*/}
                     {isSidebarExpanded && (

@@ -19,6 +19,7 @@ class Order extends Model
         'email',
         'payment_method',
         'payment_status',
+        'customer_name',
     ];
     
     protected $casts = [

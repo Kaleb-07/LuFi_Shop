@@ -192,3 +192,16 @@ export async function submitReview(reviewData: { product_id: number; rating: num
   });
 }
 
+/** Initializes a Chapa payment */
+export async function initializePayment(orderId: number): Promise<{ checkout_url: string }> {
+  return await apiFetch<{ checkout_url: string }>("/payments/initialize", {
+    method: "POST",
+    body: JSON.stringify({ order_id: orderId }),
+  });
+}
+
+/** Verifies a Chapa payment */
+export async function verifyPayment(tx_ref: string): Promise<any> {
+  return await apiFetch<any>(`/payments/verify/${tx_ref}`);
+}
+
