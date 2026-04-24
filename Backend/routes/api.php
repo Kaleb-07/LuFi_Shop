@@ -28,6 +28,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/ecommerce', [EcommerceController::class, 'index']);
 Route::get('/ecommerce/settings', [EcommerceController::class, 'settings']);
 Route::get('/ecommerce/{id}', [EcommerceController::class, 'show']);
+Route::get('/ecommerce/{id}/related', [EcommerceController::class, 'related']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{slug}', [CategoryController::class, 'show']);
 Route::get('/brands', [BrandController::class, 'index']);

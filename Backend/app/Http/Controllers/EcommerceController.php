@@ -29,6 +29,19 @@ class EcommerceController extends Controller
         return response()->json($item);
     }
 
+    public function related($id)
+    {
+        $product = EcommerceItem::findOrFail($id);
+        
+        $related = EcommerceItem::where('category_id', $product->category_id)
+            ->where('id', '!=', $id)
+            ->where('is_visible', true)
+            ->take(4)
+            ->get();
+            
+        return response()->json($related);
+    }
+
     public function settings()
     {
         $filePath = storage_path('app/settings.json');

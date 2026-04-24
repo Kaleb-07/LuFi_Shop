@@ -133,6 +133,16 @@ export async function fetchProductById(id: number): Promise<Product | null> {
   }
 }
 
+/** Fetches related products (recommendations) */
+export async function fetchRelatedProducts(id: number): Promise<Product[]> {
+  try {
+    return await apiFetch<Product[]>(`/ecommerce/${id}/related`);
+  } catch (err) {
+    console.error("Failed to fetch related products", err);
+    return [];
+  }
+}
+
 /** Fetches all categories */
 export async function fetchCategories(): Promise<Category[]> {
   return await apiFetch<Category[]>("/categories");

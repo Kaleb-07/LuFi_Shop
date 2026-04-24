@@ -133,8 +133,8 @@ const ProductDetail = () => {
     }
 
     if (!newReview.comment?.trim()) {
-       toast({ title: "Comment required", description: "Please share your thoughts in the comment section.", variant: "destructive" });
-       return;
+      toast({ title: "Comment required", description: "Please share your thoughts in the comment section.", variant: "destructive" });
+      return;
     }
 
     setSubmittingReview(true);
@@ -196,7 +196,7 @@ const ProductDetail = () => {
 
   const similarProducts = (allProducts?.filter((p) => p.id !== displayProduct.id && p.category_name === displayProduct.category_name).slice(0, 8) ?? []);
 
-  const avgRating = reviews.length > 0 
+  const avgRating = reviews.length > 0
     ? Math.round(reviews.reduce((s, r) => s + r.rating, 0) / reviews.length)
     : 5; // Default if no reviews
 
@@ -486,11 +486,11 @@ const ProductDetail = () => {
                   <h3 className="font-semibold text-gray-800">Share your experience</h3>
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                       <label className="text-sm text-gray-600 font-medium">Rating</label>
+                      <label className="text-sm text-gray-600 font-medium">Rating</label>
                       <div className="flex items-center gap-1 mt-2">
                         {[1, 2, 3, 4, 5].map((s) => (
-                          <button 
-                            key={s} 
+                          <button
+                            key={s}
                             type="button"
                             onClick={() => setNewReview({ ...newReview, rating: s })}
                           >
@@ -555,7 +555,7 @@ const ProductDetail = () => {
             ))}
             {!loadingReviews && reviews.length === 0 && (
               <div className="col-span-full py-10 text-center bg-gray-50 rounded-3xl border border-dashed border-gray-200">
-                 <p className="text-gray-400 font-medium">No reviews yet. Be the first to share your thoughts!</p>
+                <p className="text-gray-400 font-medium">No reviews yet. Be the first to share your thoughts!</p>
               </div>
             )}
           </div>

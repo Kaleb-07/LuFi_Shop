@@ -21,6 +21,7 @@ import { useToast } from "../../hooks/use-toast";
 const AdminReviews = () => {
   const [reviews, setReviews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const { toast } = useToast();
 
