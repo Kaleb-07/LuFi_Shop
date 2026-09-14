@@ -160,7 +160,7 @@ const AdminStaff = () => {
           </Button>
         </div>
 
-        {/* Performance Overview */}
+        {/* The Performance Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-slate-900 p-8 rounded-[2.5rem] text-white relative overflow-hidden group">
                 <div className="relative z-10">
