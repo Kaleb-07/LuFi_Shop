@@ -109,7 +109,7 @@ const AdminCustomers = () => {
           <p className="text-slate-500 font-medium mt-1">Manage your customer base and track their engagement.</p>
         </div>
 
-        {/* Stats Summary */}
+        {/* The Stats Summary */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-3xl border border-slate-100 flex items-center gap-4">
                 <div className="h-12 w-12 rounded-2xl bg-blue-50 text-blue-500 flex items-center justify-center">
