@@ -142,7 +142,7 @@ const AdminCustomers = () => {
             </div>
         </div>
 
-        {/* Table & Filters */}
+        {/* Table And Filters */}
         <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
            <div className="p-6 border-b border-slate-50">
               <div className="relative group max-w-sm">
